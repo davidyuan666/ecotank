@@ -1,0 +1,32 @@
+
+> eco-tank@1.0.0 dev
+> next dev
+
+ ⚠ Port 3000 is in use, trying 3001 instead.
+  ▲ Next.js 14.2.35
+  - Local:        http://localhost:3001
+
+ ✓ Starting...
+[Error: EPERM: operation not permitted, open 'C:\workspace\opencodeworkspace\eco-tank\.next\trace'] {
+  errno: -4048,
+  code: 'EPERM',
+  syscall: 'open',
+  path: 'C:\\workspace\\opencodeworkspace\\eco-tank\\.next\\trace'
+}
+ ✓ Ready in 14.9s
+ ○ Compiling / ...
+ ✓ Compiled / in 5.6s (473 modules)
+ ✓ Compiled in 510ms (244 modules)
+ GET / 200 in 198ms
+ ✓ Compiled in 660ms (473 modules)
+ ✓ Compiled in 400ms (473 modules)
+ ✓ Compiled in 381ms (473 modules)
+ GET / 200 in 209ms
+ ○ Compiling /_not-found ...
+ ✓ Compiled /_not-found in 740ms (462 modules)
+ GET /_next/static/css/app/layout.css?v=1773981804382 404 in 1026ms
+ GET /_next/static/chunks/main-app.js?v=1773981804382 404 in 876ms
+ GET /_next/static/chunks/webpack.js?v=1773981804382 404 in 1029ms
+ GET /_next/static/chunks/app/page.js 404 in 873ms
+ GET /_next/static/chunks/app-pages-internals.js 404 in 877ms
+[?25h
