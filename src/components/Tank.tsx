@@ -293,7 +293,7 @@ export function Tank() {
             ))}
           </div>
 
-          <div className="absolute left-0 right-0 bottom-0 h-[15%] sand-layer rounded-b-xl z-[5]">
+          <div className="absolute left-0 right-0 bottom-0 z-[6] pointer-events-none">
             {plantCreatures.map(pos => (
               <FixedCreature
                 key={pos.instanceId}
@@ -303,6 +303,9 @@ export function Tank() {
                 onRemove={handleRemoveCreature}
               />
             ))}
+          </div>
+
+          <div className="absolute left-0 right-0 bottom-0 h-[15%] sand-layer rounded-b-xl z-[5]">
             <div className="absolute left-0 right-0 top-0 bottom-0">
               {deadCreatures.map(pos => (
                 <div
