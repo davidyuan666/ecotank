@@ -18,10 +18,10 @@ export default function Home() {
   return (
     <main className="min-h-screen p-4 md:p-8">
       <div className="max-w-7xl mx-auto">
-        <header className="text-center mb-8">
-          <div className="inline-flex items-center gap-3 mb-3">
+        <header className="text-center mb-4">
+          <div className="inline-flex items-center gap-2 mb-2">
             <WaveIcon />
-            <h1 className="text-4xl md:text-5xl font-black bg-gradient-to-r from-cyan-400 via-sky-400 to-blue-500 bg-clip-text text-transparent drop-shadow-lg">
+            <h1 className="text-2xl md:text-3xl font-bold bg-gradient-to-r from-cyan-400 via-sky-400 to-blue-500 bg-clip-text text-transparent drop-shadow-lg">
               生态鱼缸模拟器
             </h1>
             <WaveIcon />
