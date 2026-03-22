@@ -26,9 +26,11 @@ export default function Home() {
             </h1>
             <WaveIcon />
           </div>
-          <p className="text-gray-500 text-sm">
-            拖拽生物到水缸中，生物会自动游动！水草会产生氧气，氧气低于5时生物会死亡沉底。
-          </p>
+          <div className="bg-amber-500/10 border border-amber-500/20 rounded-lg px-4 py-2">
+            <p className="text-amber-600 text-xs">
+              💡 拖拽生物到水缸中，水草会产生氧气，氧气低于5时生物会死亡沉底
+            </p>
+          </div>
         </header>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
