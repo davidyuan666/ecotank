@@ -79,11 +79,12 @@ export function Tank() {
         total += p.oxygenChange
       }
     })
-    return Math.max(0, Math.min(100, total))
+    return total
   }, [positions])
 
   const oxygenLevel = calculateOxygen()
-  const isDead = oxygenLevel < 1
+  const displayOxygen = Math.max(0, Math.min(100, oxygenLevel))
+  const isDead = oxygenLevel <= 0
 
   const handleDrop = (creature: Creature) => {
     const instanceId = `${creature.id}-${Date.now()}-${Math.random()}`
@@ -239,7 +240,7 @@ export function Tank() {
 
         <div className="relative z-10">
           <div className="flex justify-end items-center gap-3 mb-3">
-            <OxygenMeter level={oxygenLevel} />
+            <OxygenMeter level={displayOxygen} />
             <button
               onClick={handleReset}
               className="bg-white/10 hover:bg-white/20 text-cyan-100 
