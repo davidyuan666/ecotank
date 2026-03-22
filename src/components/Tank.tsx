@@ -246,23 +246,23 @@ export function Tank() {
         }} />
 
           <div className="relative z-10">
-          <div className="flex justify-end items-center gap-3 mb-3">
-            <ComfortMeter creatureCount={swimmingCreatures.length} />
-            <OxygenMeter level={displayOxygen} />
-            <button
-              onClick={handleReset}
-              className="bg-white/10 hover:bg-white/20 text-cyan-100 
-                       rounded-lg py-2 px-3 font-medium transition-all backdrop-blur-sm
-                       border border-white/10 shadow"
-            >
-              ✨ 重置
-            </button>
-          </div>
+            <div className="flex flex-col items-end gap-2 mb-3">
+              <ComfortMeter creatureCount={swimmingCreatures.length} />
+              <OxygenMeter level={displayOxygen} />
+              <button
+                onClick={handleReset}
+                className="bg-white/10 hover:bg-white/20 text-cyan-100 
+                         rounded-lg py-2 px-3 font-medium transition-all backdrop-blur-sm
+                         border border-white/10 shadow"
+              >
+                重置
+              </button>
+            </div>
 
           <div
             ref={tankRef}
             className="aquarium-container relative rounded-xl overflow-hidden"
-            style={{ height: '520px' }}
+            style={{ height: 'calc(80vh - 140px)' }}
           >
             <div className="absolute inset-0 bg-gradient-to-b from-cyan-900/60 via-blue-900/50 to-sky-900/80" />
             <div className="absolute inset-0"
