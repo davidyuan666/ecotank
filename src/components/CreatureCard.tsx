@@ -133,6 +133,88 @@ export function FixedCreature({ instanceId, x, dead, onRemove }: FixedCreaturePr
   )
 }
 
+interface DeadBoneProps {
+  category: CreatureCategory
+  instanceId: string
+}
+
+export function DeadBone({ category, instanceId }: DeadBoneProps) {
+  switch (category) {
+    case 'fish': return <DeadFishSVG instanceId={instanceId} />
+    case 'shrimp': return <DeadShrimpSVG instanceId={instanceId} />
+    case 'snail': return <DeadSnailSVG instanceId={instanceId} />
+    case 'plant': return <DeadPlantSVG instanceId={instanceId} />
+    default: return <DeadFishSVG instanceId={instanceId} />
+  }
+}
+
+function DeadFishSVG({ instanceId }: { instanceId: string }) {
+  const isKoi = instanceId.includes('koi')
+  const isTetra = instanceId.includes('tetra')
+  return (
+    <svg viewBox="0 0 64 40" className="opacity-60" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="28" cy="20" rx="18" ry="13" fill="#b0b0b0" stroke="#888" strokeWidth="1" />
+      <ellipse cx="16" cy="20" rx="9" ry="7" fill="#b0b0b0" stroke="#888" strokeWidth="1" />
+      <path d="M7 20 Q2 13 5 6 Q9 13 7 20Z" fill="#c0c0c0" stroke="#888" strokeWidth="0.5" />
+      <path d="M42 12 Q50 5 56 12 Q50 18 42 12Z" fill="#c0c0c0" stroke="#888" strokeWidth="0.5" />
+      <line x1="8" y1="18" x2="22" y2="20" stroke="#888" strokeWidth="1.5" />
+      <line x1="22" y1="16" x2="34" y2="20" stroke="#888" strokeWidth="1" />
+      <line x1="22" y1="24" x2="34" y2="20" stroke="#888" strokeWidth="1" />
+      <line x1="34" y1="14" x2="34" y2="26" stroke="#888" strokeWidth="1" />
+      <circle cx="14" cy="17" r="3.5" fill="none" stroke="#888" strokeWidth="1" />
+      <circle cx="14" cy="17" r="1.5" fill="#666" />
+    </svg>
+  )
+}
+
+function DeadShrimpSVG({ instanceId }: { instanceId: string }) {
+  const isCrystal = instanceId.includes('crystal')
+  return (
+    <svg viewBox="0 0 52 28" className="opacity-60" xmlns="http://www.w3.org/2000/svg">
+      <path d="M44 14 Q46 10 44 6 Q40 10 44 14Z" fill="#b0b0b0" stroke="#888" strokeWidth="0.5" />
+      <ellipse cx="35" cy="14" rx="8" ry="5" fill="#b0b0b0" stroke="#888" strokeWidth="1" />
+      <ellipse cx="20" cy="14" rx="9" ry="6" fill="#b0b0b0" stroke="#888" strokeWidth="1" />
+      <ellipse cx="12" cy="14" rx="5" ry="4" fill="#b0b0b0" stroke="#888" strokeWidth="1" />
+      <ellipse cx="7" cy="14" rx="3" ry="2.5" fill="#c0c0c0" stroke="#888" strokeWidth="0.5" />
+      <line x1="8" y1="11" x2="10" y2="8" stroke="#888" strokeWidth="1" />
+      <line x1="10" y1="17" x2="12" y2="20" stroke="#888" strokeWidth="1" />
+      <line x1="20" y1="10" x2="22" y2="7" stroke="#888" strokeWidth="1" />
+      <line x1="20" y1="18" x2="22" y2="21" stroke="#888" strokeWidth="1" />
+      <line x1="28" y1="11" x2="30" y2="8" stroke="#888" strokeWidth="1" />
+      <line x1="28" y1="17" x2="30" y2="20" stroke="#888" strokeWidth="1" />
+      <circle cx="7" cy="11" r="2.5" fill="none" stroke="#888" strokeWidth="1" />
+    </svg>
+  )
+}
+
+function DeadSnailSVG({ instanceId }: { instanceId: string }) {
+  const isZebra = instanceId.includes('zebra')
+  return (
+    <svg viewBox="0 0 48 48" className="opacity-60" xmlns="http://www.w3.org/2000/svg">
+      <path d="M28 44 Q28 28 20 24 Q10 22 10 34 Q10 44 20 44Z" fill="#c8a882" stroke="#888" strokeWidth="1" />
+      <path d="M12 32 Q12 22 22 18 Q30 18 28 28 Q28 36 20 38Z" fill="#b09070" stroke="#888" strokeWidth="1" />
+      <path d="M15 30 Q16 24 22 22 Q28 24 26 30 Q26 36 20 36Z" fill="#a08060" stroke="#888" strokeWidth="0.5" />
+      <path d="M20 26 Q21 24 23 24 Q25 24 24 26 Q24 28 22 28Z" fill="#907050" stroke="#888" strokeWidth="0.5" />
+      <path d="M20 44 Q18 48 16 44" stroke="#c8a882" strokeWidth="3" fill="none" strokeLinecap="round" />
+      <path d="M26 44 Q28 48 30 44" stroke="#c8a882" strokeWidth="3" fill="none" strokeLinecap="round" />
+      <path d="M10 36 Q6 30 8 26 Q12 30 10 36Z" fill="#c8a882" stroke="#888" strokeWidth="1" />
+      <circle cx="8" cy="24" r="2.5" fill="#b09070" stroke="#888" strokeWidth="1" />
+    </svg>
+  )
+}
+
+function DeadPlantSVG({ instanceId }: { instanceId: string }) {
+  return (
+    <svg viewBox="0 0 40 60" className="opacity-40" xmlns="http://www.w3.org/2000/svg">
+      <rect x="18" y="10" width="4" height="40" rx="2" fill="#6b8e6b" stroke="#5a7a5a" strokeWidth="0.5" />
+      <path d="M20 20 Q8 15 6 8 Q14 14 20 20Z" fill="#5a7a5a" />
+      <path d="M20 20 Q32 15 34 8 Q26 14 20 20Z" fill="#5a7a5a" />
+      <path d="M20 35 Q6 28 4 20 Q14 28 20 35Z" fill="#4a6a4a" />
+      <path d="M20 50 Q10 42 8 32 Q16 42 20 50Z" fill="#4a6a4a" />
+    </svg>
+  )
+}
+
 interface PlacedCreatureItemProps {
   creature: PlacedCreature
   onRemove: (instanceId: string) => void

@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { Creature, CreaturePosition } from '@/types'
-import { MovingCreature, FixedCreature } from './CreatureCard'
+import { MovingCreature, FixedCreature, DeadBone } from './CreatureCard'
 import { OxygenMeter } from './OxygenMeter'
 
 interface LayerInfo {
@@ -203,22 +203,29 @@ export function Tank() {
   useEffect(() => {
     if (isDead) {
       setPositions(prev => prev.map(p => {
-        if (!p.dead && p.layerIndex !== 4) {
-          setLayers(layers => layers.map((layer) => {
-            if (layer.id === 'sand') {
-              return { ...layer, creatures: [...layer.creatures, p.instanceId] }
-            }
-            return { ...layer, creatures: layer.creatures.filter(id => id !== p.instanceId) }
-          }))
-          return { ...p, dead: true, layerIndex: 4, vx: 0, vy: 0 }
+        if (!p.dead) {
+          setLayers(layers => {
+            const updated = layers.map(layer => {
+              if (layer.creatures.includes(p.instanceId)) {
+                return { ...layer, creatures: layer.creatures.filter(id => id !== p.instanceId) }
+              }
+              if (layer.id === 'sand') {
+                return { ...layer, creatures: [...layer.creatures, p.instanceId] }
+              }
+              return layer
+            })
+            return updated
+          })
+          return { ...p, dead: true, layerIndex: 4, vx: 0, vy: 0, x: p.x, y: 0.83 }
         }
         return p
       }))
     }
   }, [isDead])
 
-  const swimmingCreatures = positions.filter(p => p.category !== 'plant')
-  const plantCreatures = positions.filter(p => p.category === 'plant')
+  const swimmingCreatures = positions.filter(p => p.category !== 'plant' && !p.dead)
+  const plantCreatures = positions.filter(p => p.category === 'plant' && !p.dead)
+  const deadCreatures = positions.filter(p => p.dead)
 
   return (
     <div className="w-full">
@@ -290,6 +297,22 @@ export function Tank() {
                 onRemove={handleRemoveCreature}
               />
             ))}
+            <div className="absolute left-0 right-0 top-0 bottom-0">
+              {deadCreatures.map(pos => (
+                <div
+                  key={pos.instanceId}
+                  className="absolute bottom-2 cursor-pointer"
+                  style={{
+                    left: `${pos.x * 100}%`,
+                    transform: 'translateX(-50%)',
+                  }}
+                  onClick={() => handleRemoveCreature(pos.instanceId)}
+                  title="点击移除"
+                >
+                  <DeadBone category={pos.category} instanceId={pos.instanceId} />
+                </div>
+              ))}
+            </div>
           </div>
 
           <div className="absolute left-0 right-0 bottom-[15%] h-px bg-amber-700/60 z-10" />
