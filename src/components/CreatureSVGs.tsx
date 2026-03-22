@@ -87,122 +87,132 @@ export function TetraSVG({ className, style }: SVGProps) {
 
 export function ShrimpSVG({ className, style }: SVGProps) {
   return (
-    <svg viewBox="0 0 80 44" className={className} style={style} xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 80 56" className={className} style={style} xmlns="http://www.w3.org/2000/svg">
       <defs>
         <linearGradient id="shrimp-body" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="#5a7a5a" />
-          <stop offset="40%" stopColor="#3d5a3d" />
-          <stop offset="100%" stopColor="#2d3d2d" />
+          <stop offset="0%" stopColor="#6b8e6b" />
+          <stop offset="50%" stopColor="#4a6a4a" />
+          <stop offset="100%" stopColor="#2d4a2d" />
         </linearGradient>
       </defs>
-      <path d="M12 22 Q8 18 5 10 Q10 5 16 12 Q18 18 20 22Z" fill="#4a6b4a" opacity="0.8" />
-      <path d="M14 22 Q10 18 7 10 Q12 5 18 12 Q20 18 22 22Z" fill="#6a8a6a" opacity="0.6" />
-      <ellipse cx="22" cy="22" rx="10" ry="8" fill="url(#shrimp-body)" />
-      <ellipse cx="38" cy="22" rx="12" ry="9" fill="url(#shrimp-body)" />
-      <ellipse cx="54" cy="22" rx="12" ry="9" fill="url(#shrimp-body)" />
-      <ellipse cx="68" cy="22" rx="10" ry="8" fill="url(#shrimp-body)" />
-      <path d="M76 22 Q80 18 78 12 Q74 18 76 22Z" fill="#4a6b4a" />
-      <path d="M76 22 Q80 26 78 32 Q74 26 76 22Z" fill="#4a6b4a" />
-      <circle cx="16" cy="18" r="3" fill="#1a2e1a" />
-      <circle cx="17" cy="17" r="1.2" fill="#fff" opacity="0.4" />
-      <line x1="14" y1="16" x2="2" y2="6" stroke="#4a6b4a" strokeWidth="1.2" strokeLinecap="round" />
-      <line x1="16" y1="15" x2="4" y2="4" stroke="#3d5a3d" strokeWidth="1" strokeLinecap="round" />
-      <line x1="14" y1="28" x2="2" y2="38" stroke="#4a6b4a" strokeWidth="1.2" strokeLinecap="round" />
-      <line x1="16" y1="29" x2="4" y2="40" stroke="#3d5a3d" strokeWidth="1" strokeLinecap="round" />
-      <line x1="30" y1="14" x2="26" y2="6" stroke="#3d5a3d" strokeWidth="1" strokeLinecap="round" />
-      <line x1="30" y1="30" x2="26" y2="38" stroke="#3d5a3d" strokeWidth="1" strokeLinecap="round" />
-      <line x1="46" y1="14" x2="42" y2="6" stroke="#3d5a3d" strokeWidth="1" strokeLinecap="round" />
-      <line x1="46" y1="30" x2="42" y2="38" stroke="#3d5a3d" strokeWidth="1" strokeLinecap="round" />
-      <line x1="62" y1="14" x2="58" y2="6" stroke="#3d5a3d" strokeWidth="1" strokeLinecap="round" />
-      <line x1="62" y1="30" x2="58" y2="38" stroke="#3d5a3d" strokeWidth="1" strokeLinecap="round" />
-      <line x1="36" y1="14" x2="32" y2="6" stroke="#3d5a3d" strokeWidth="1" strokeLinecap="round" />
-      <line x1="36" y1="30" x2="32" y2="38" stroke="#3d5a3d" strokeWidth="1" strokeLinecap="round" />
+      <path d="M18 28 Q12 22 6 12 Q14 4 24 12 Q28 20 32 28" fill="#4a6a4a" />
+      <path d="M18 28 Q12 22 6 12 Q14 4 24 12 Q28 20 32 28" fill="none" stroke="#3a5a3a" strokeWidth="0.5" />
+      <path d="M32 28 Q36 20 40 12 Q50 4 62 12 Q70 20 74 28 Q78 36 72 42 Q64 48 52 46 Q38 46 28 40 Q22 36 18 28Z" fill="url(#shrimp-body)" />
+      <path d="M72 28 Q78 22 80 18 Q76 28 72 28Z" fill="#3a5a3a" />
+      <path d="M72 28 Q78 34 80 38 Q76 28 72 28Z" fill="#3a5a3a" />
+      <path d="M70 28 Q76 24 78 20 Q74 28 70 28Z" fill="#4a6a4a" />
+      <path d="M70 28 Q76 32 78 36 Q74 28 70 28Z" fill="#4a6a4a" />
+      <line x1="28" y1="40" x2="20" y2="52" stroke="#3a5a3a" strokeWidth="1.2" strokeLinecap="round" />
+      <line x1="36" y1="42" x2="30" y2="54" stroke="#3a5a3a" strokeWidth="1.2" strokeLinecap="round" />
+      <line x1="46" y1="43" x2="42" y2="55" stroke="#3a5a3a" strokeWidth="1.2" strokeLinecap="round" />
+      <line x1="56" y1="40" x2="54" y2="52" stroke="#3a5a3a" strokeWidth="1.2" strokeLinecap="round" />
+      <line x1="62" y1="14" x2="60" y2="2" stroke="#4a6a4a" strokeWidth="1" strokeLinecap="round" />
+      <line x1="64" y1="14" x2="66" y2="2" stroke="#4a6a4a" strokeWidth="1" strokeLinecap="round" />
+      <circle cx="20" cy="24" r="4" fill="#2d4a2d" />
+      <circle cx="21" cy="23" r="1.5" fill="#1a2e1a" />
+      <circle cx="21.5" cy="22.5" r="0.6" fill="#fff" opacity="0.4" />
+      <path d="M62 14 Q68 10 74 14" stroke="#3a5a3a" strokeWidth="1" fill="none" opacity="0.5" />
+      <path d="M60 18 Q66 14 72 18" stroke="#3a5a3a" strokeWidth="1" fill="none" opacity="0.5" />
+      <path d="M58 22 Q64 18 70 22" stroke="#3a5a3a" strokeWidth="1" fill="none" opacity="0.5" />
+      <path d="M56 26 Q62 22 68 26" stroke="#3a5a3a" strokeWidth="1" fill="none" opacity="0.5" />
     </svg>
   )
 }
 
 export function CrystalShrimpSVG({ className, style }: SVGProps) {
   return (
-    <svg viewBox="0 0 80 44" className={className} style={style} xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 80 56" className={className} style={style} xmlns="http://www.w3.org/2000/svg">
       <defs>
         <linearGradient id="crystal-body" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="#fff" stopOpacity="0.9" />
-          <stop offset="40%" stopColor="#e8f8ff" stopOpacity="0.85" />
-          <stop offset="100%" stopColor="#d0f0ff" stopOpacity="0.8" />
+          <stop offset="0%" stopColor="#fff" stopOpacity="0.92" />
+          <stop offset="50%" stopColor="#e0f8ff" stopOpacity="0.88" />
+          <stop offset="100%" stopColor="#b0d8f0" stopOpacity="0.82" />
         </linearGradient>
       </defs>
-      <path d="M12 22 Q8 18 5 10 Q10 5 16 12 Q18 18 20 22Z" fill="#a0d8e8" opacity="0.7" />
-      <path d="M14 22 Q10 18 7 10 Q12 5 18 12 Q20 18 22 22Z" fill="#c0e8f0" opacity="0.6" />
-      <ellipse cx="22" cy="22" rx="10" ry="8" fill="url(#crystal-body)" />
-      <ellipse cx="38" cy="22" rx="12" ry="9" fill="url(#crystal-body)" />
-      <ellipse cx="54" cy="22" rx="12" ry="9" fill="url(#crystal-body)" />
-      <ellipse cx="68" cy="22" rx="10" ry="8" fill="url(#crystal-body)" />
-      <path d="M76 22 Q80 18 78 12 Q74 18 76 22Z" fill="#a0d8e8" />
-      <path d="M76 22 Q80 26 78 32 Q74 26 76 22Z" fill="#a0d8e8" />
-      <rect x="26" y="15" width="8" height="3" rx="1.5" fill="#c0392b" opacity="0.7" />
-      <rect x="42" y="15" width="8" height="3" rx="1.5" fill="#c0392b" opacity="0.7" />
-      <rect x="58" y="15" width="8" height="3" rx="1.5" fill="#c0392b" opacity="0.7" />
-      <rect x="34" y="26" width="8" height="3" rx="1.5" fill="#c0392b" opacity="0.5" />
-      <rect x="50" y="26" width="8" height="3" rx="1.5" fill="#c0392b" opacity="0.5" />
-      <circle cx="16" cy="18" r="3" fill="#006080" opacity="0.6" />
-      <circle cx="17" cy="17" r="1.2" fill="#fff" opacity="0.6" />
-      <line x1="14" y1="16" x2="2" y2="6" stroke="#a0d8e8" strokeWidth="1.2" strokeLinecap="round" opacity="0.8" />
-      <line x1="16" y1="15" x2="4" y2="4" stroke="#80c0d0" strokeWidth="1" strokeLinecap="round" opacity="0.7" />
-      <line x1="14" y1="28" x2="2" y2="38" stroke="#a0d8e8" strokeWidth="1.2" strokeLinecap="round" opacity="0.8" />
-      <line x1="16" y1="29" x2="4" y2="40" stroke="#80c0d0" strokeWidth="1" strokeLinecap="round" opacity="0.7" />
-      <line x1="22" y1="15" x2="18" y2="8" stroke="#fff" strokeWidth="0.5" opacity="0.5" />
-      <line x1="38" y1="15" x2="34" y2="8" stroke="#fff" strokeWidth="0.5" opacity="0.5" />
-      <line x1="54" y1="15" x2="50" y2="8" stroke="#fff" strokeWidth="0.5" opacity="0.5" />
+      <path d="M18 28 Q12 22 6 12 Q14 4 24 12 Q28 20 32 28" fill="#a0d0e8" opacity="0.7" />
+      <path d="M32 28 Q36 20 40 12 Q50 4 62 12 Q70 20 74 28 Q78 36 72 42 Q64 48 52 46 Q38 46 28 40 Q22 36 18 28Z" fill="url(#crystal-body)" />
+      <path d="M72 28 Q78 22 80 18 Q76 28 72 28Z" fill="#80c0d8" opacity="0.8" />
+      <path d="M72 28 Q78 34 80 38 Q76 28 72 28Z" fill="#80c0d8" opacity="0.8" />
+      <path d="M70 28 Q76 24 78 20 Q74 28 70 28Z" fill="#c0e0f0" opacity="0.6" />
+      <rect x="36" y="16" width="28" height="3" rx="1.5" fill="#c0392b" opacity="0.65" clipPath="none" />
+      <rect x="40" y="24" width="24" height="3" rx="1.5" fill="#c0392b" opacity="0.5" />
+      <rect x="44" y="32" width="20" height="2.5" rx="1" fill="#c0392b" opacity="0.4" />
+      <line x1="28" y1="40" x2="20" y2="52" stroke="#80c0d8" strokeWidth="1.2" strokeLinecap="round" opacity="0.8" />
+      <line x1="36" y1="42" x2="30" y2="54" stroke="#80c0d8" strokeWidth="1.2" strokeLinecap="round" opacity="0.8" />
+      <line x1="46" y1="43" x2="42" y2="55" stroke="#80c0d8" strokeWidth="1.2" strokeLinecap="round" opacity="0.8" />
+      <line x1="56" y1="40" x2="54" y2="52" stroke="#80c0d8" strokeWidth="1.2" strokeLinecap="round" opacity="0.8" />
+      <line x1="62" y1="14" x2="60" y2="2" stroke="#80c0d8" strokeWidth="1" strokeLinecap="round" opacity="0.8" />
+      <line x1="64" y1="14" x2="66" y2="2" stroke="#80c0d8" strokeWidth="1" strokeLinecap="round" opacity="0.8" />
+      <circle cx="20" cy="24" r="4" fill="#006080" opacity="0.5" />
+      <circle cx="21" cy="23" r="1.5" fill="#003050" opacity="0.4" />
+      <circle cx="21.5" cy="22.5" r="0.6" fill="#fff" opacity="0.6" />
+      <line x1="36" y1="14" x2="60" y2="14" stroke="#fff" strokeWidth="0.6" opacity="0.5" />
+      <line x1="40" y1="22" x2="62" y2="22" stroke="#fff" strokeWidth="0.6" opacity="0.4" />
+      <line x1="44" y1="30" x2="62" y2="30" stroke="#fff" strokeWidth="0.6" opacity="0.3" />
     </svg>
   )
 }
 
 export function AppleSnailSVG({ className, style }: SVGProps) {
   return (
-    <svg viewBox="0 0 48 48" className={className} style={style} xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 80 60" className={className} style={style} xmlns="http://www.w3.org/2000/svg">
       <defs>
         <radialGradient id="snail-shell" cx="40%" cy="35%">
-          <stop offset="0%" stopColor="#FF6B6B" />
-          <stop offset="100%" stopColor="#c0392b" />
+          <stop offset="0%" stopColor="#FF8A80" />
+          <stop offset="50%" stopColor="#e53935" />
+          <stop offset="100%" stopColor="#b71c1c" />
         </radialGradient>
       </defs>
-      <path d="M28 44 Q28 28 20 24 Q10 22 10 34 Q10 44 20 44Z" fill="#f5cba7" />
-      <path d="M12 32 Q12 22 22 18 Q30 18 28 28 Q28 36 20 38Z" fill="url(#snail-shell)" />
-      <path d="M15 30 Q16 24 22 22 Q28 24 26 30 Q26 36 20 36Z" fill="#e74c3c" opacity="0.6" />
-      <path d="M18 28 Q19 24 23 23 Q27 24 26 28 Q26 32 22 32Z" fill="#c0392b" opacity="0.5" />
-      <path d="M20 26 Q21 24 23 24 Q25 24 24 26 Q24 28 22 28Z" fill="#922b21" opacity="0.4" />
-      <path d="M20 44 Q18 48 16 44" stroke="#f5cba7" strokeWidth="3" fill="none" strokeLinecap="round" />
-      <path d="M26 44 Q28 48 30 44" stroke="#f5cba7" strokeWidth="3" fill="none" strokeLinecap="round" />
-      <ellipse cx="22" cy="44" rx="8" ry="3" fill="#f5cba7" opacity="0.5" />
-      <path d="M10 36 Q6 30 8 26 Q12 30 10 36Z" fill="#f5cba7" />
-      <circle cx="8" cy="24" r="2.5" fill="#f5cba7" />
-      <circle cx="8" cy="23" r="1.5" fill="#1a1a1a" />
-      <circle cx="7.5" cy="22.5" r="0.5" fill="#fff" opacity="0.6" />
+      <ellipse cx="44" cy="26" rx="28" ry="24" fill="url(#snail-shell)" />
+      <path d="M28 26 Q28 8 44 8 Q60 8 60 26 Q60 44 44 44 Q28 44 28 26Z" fill="none" stroke="#c62828" strokeWidth="1" opacity="0.3" />
+      <path d="M30 26 Q30 12 44 12 Q58 12 58 26 Q58 38 44 38 Q30 38 30 26Z" fill="none" stroke="#d32f2f" strokeWidth="1" opacity="0.3" />
+      <path d="M34 26 Q34 18 44 18 Q54 18 54 26 Q54 34 44 34 Q34 34 34 26Z" fill="none" stroke="#e53935" strokeWidth="1" opacity="0.3" />
+      <path d="M38 26 Q38 22 44 22 Q50 22 50 26 Q50 30 44 30 Q38 30 38 26Z" fill="#b71c1c" opacity="0.4" />
+      <ellipse cx="44" cy="26" rx="5" ry="5" fill="#b71c1c" opacity="0.5" />
+      <path d="M12 50 Q8 44 10 38 Q14 44 16 50Z" fill="#f5cba7" />
+      <ellipse cx="40" cy="52" rx="36" ry="7" fill="#f5cba7" />
+      <path d="M4 50 Q8 46 12 50 Q8 54 4 50Z" fill="#e0b090" />
+      <path d="M76 50 Q72 46 68 50 Q72 54 76 50Z" fill="#e0b090" />
+      <line x1="16" y1="50" x2="64" y2="50" stroke="#e0b090" strokeWidth="0.5" />
+      <path d="M12 50 Q10 42 12 36 Q16 42 18 50" fill="#e0b090" />
+      <circle cx="10" cy="34" r="3" fill="#f5cba7" />
+      <line x1="10" y1="32" x2="6" y2="24" stroke="#e0b090" strokeWidth="2" strokeLinecap="round" />
+      <line x1="10" y1="32" x2="10" y2="22" stroke="#e0b090" strokeWidth="2" strokeLinecap="round" />
+      <circle cx="6" cy="23" r="1.5" fill="#1a1a1a" />
+      <circle cx="10" cy="21" r="1.5" fill="#1a1a1a" />
+      <circle cx="5.5" cy="22.5" r="0.5" fill="#fff" opacity="0.6" />
+      <circle cx="9.5" cy="20.5" r="0.5" fill="#fff" opacity="0.6" />
+      <path d="M8 35 Q6 38 4 36" stroke="#e0b090" strokeWidth="1.5" fill="none" strokeLinecap="round" />
     </svg>
   )
 }
 
 export function ZebraSnailSVG({ className, style }: SVGProps) {
   return (
-    <svg viewBox="0 0 48 44" className={className} style={style} xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 80 60" className={className} style={style} xmlns="http://www.w3.org/2000/svg">
       <defs>
-        <radialGradient id="zebra-shell" cx="40%" cy="35%">
-          <stop offset="0%" stopColor="#FFF3CD" />
-          <stop offset="100%" stopColor="#F4D03F" />
-        </radialGradient>
+        <linearGradient id="zebra-shell" x1="30%" y1="0%" x2="70%" y2="100%">
+          <stop offset="0%" stopColor="#FFF9C4" />
+          <stop offset="100%" stopColor="#f9a825" />
+        </linearGradient>
       </defs>
-      <path d="M28 40 Q28 26 20 22 Q10 20 10 30 Q10 40 20 40Z" fill="#f5cba7" />
-      <path d="M12 28 Q12 20 20 16 Q28 18 26 28 Q26 36 20 36Z" fill="url(#zebra-shell)" />
-      <path d="M14 27 Q14 22 20 20 Q26 22 24 27" stroke="#2c3e50" strokeWidth="1.5" fill="none" opacity="0.7" />
-      <path d="M13 30 Q13 25 19 23 Q25 25 23 30" stroke="#2c3e50" strokeWidth="1.5" fill="none" opacity="0.7" />
-      <path d="M12 33 Q12 28 18 26 Q24 28 22 33" stroke="#2c3e50" strokeWidth="1.5" fill="none" opacity="0.7" />
-      <path d="M20 40 Q18 44 16 40" stroke="#f5cba7" strokeWidth="3" fill="none" strokeLinecap="round" />
-      <path d="M26 40 Q28 44 30 40" stroke="#f5cba7" strokeWidth="3" fill="none" strokeLinecap="round" />
-      <ellipse cx="22" cy="40" rx="8" ry="3" fill="#f5cba7" opacity="0.5" />
-      <path d="M10 32 Q6 26 8 22 Q12 26 10 32Z" fill="#f5cba7" />
-      <circle cx="8" cy="20" r="2.5" fill="#f5cba7" />
-      <circle cx="8" cy="19" r="1.5" fill="#1a1a1a" />
-      <circle cx="7.5" cy="18.5" r="0.5" fill="#fff" opacity="0.6" />
+      <path d="M50 52 Q54 46 56 38 Q58 26 50 18 Q42 10 34 14 Q26 18 26 28 Q26 38 34 44 Q42 50 50 52Z" fill="url(#zebra-shell)" />
+      <path d="M50 52 Q54 46 56 38 Q58 26 50 18 Q42 10 34 14 Q26 18 26 28 Q26 38 34 44 Q42 50 50 52Z" fill="none" stroke="#f57f17" strokeWidth="0.8" />
+      <path d="M30 30 Q28 22 34 16 Q42 12 48 16 Q54 20 52 30 Q50 40 42 44 Q34 46 30 30Z" fill="none" stroke="#212121" strokeWidth="1.5" opacity="0.6" />
+      <path d="M28 32 Q26 26 32 20 Q38 16 44 18 Q50 22 48 30 Q46 38 38 40 Q30 40 28 32Z" fill="none" stroke="#212121" strokeWidth="1.5" opacity="0.6" />
+      <path d="M26 34 Q24 28 30 24 Q36 20 40 22 Q44 26 42 32 Q40 38 32 38 Q26 36 26 34Z" fill="#f9a825" opacity="0.3" />
+      <ellipse cx="50" cy="54" rx="28" ry="5" fill="#f5cba7" />
+      <path d="M22 54 Q18 50 22 46 Q26 50 30 54Z" fill="#e0b090" />
+      <path d="M78 54 Q82 50 78 46 Q74 50 70 54Z" fill="#e0b090" />
+      <line x1="24" y1="54" x2="76" y2="54" stroke="#e0b090" strokeWidth="0.5" />
+      <path d="M22 54 Q20 46 22 40 Q26 46 28 54" fill="#e0b090" />
+      <circle cx="20" cy="38" r="3" fill="#f5cba7" />
+      <line x1="20" y1="36" x2="14" y2="28" stroke="#e0b090" strokeWidth="2" strokeLinecap="round" />
+      <line x1="20" y1="36" x2="20" y2="26" stroke="#e0b090" strokeWidth="2" strokeLinecap="round" />
+      <circle cx="14" cy="27" r="1.5" fill="#1a1a1a" />
+      <circle cx="20" cy="25" r="1.5" fill="#1a1a1a" />
+      <circle cx="13.5" cy="26.5" r="0.5" fill="#fff" opacity="0.6" />
+      <circle cx="19.5" cy="24.5" r="0.5" fill="#fff" opacity="0.6" />
     </svg>
   )
 }
