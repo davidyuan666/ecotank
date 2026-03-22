@@ -119,7 +119,7 @@ export function FixedCreature({ instanceId, x, dead, onRemove }: FixedCreaturePr
       className={`absolute select-none cursor-pointer ${dead ? 'dead-creature' : 'plant-sway'}`}
       style={{
         left: `${x * 100}%`,
-        bottom: '6px',
+        bottom: '0px',
         transform: 'translateX(-50%)',
         width: isAnubias ? '120px' : '80px',
         height: isAnubias ? '140px' : '180px',
@@ -128,7 +128,7 @@ export function FixedCreature({ instanceId, x, dead, onRemove }: FixedCreaturePr
       onClick={() => onRemove(instanceId)}
       title="点击移除"
     >
-      <div className="w-full h-full opacity-80">
+      <div className="w-full h-full opacity-80 overflow-visible">
         {isAnubias ? <AnubiasSVG /> : <AnacharisSVG />}
       </div>
     </div>

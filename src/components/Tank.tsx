@@ -293,19 +293,7 @@ export function Tank() {
             ))}
           </div>
 
-          <div className="absolute left-0 right-0 bottom-0 z-[6] pointer-events-none">
-            {plantCreatures.map(pos => (
-              <FixedCreature
-                key={pos.instanceId}
-                instanceId={pos.instanceId}
-                x={pos.x}
-                dead={pos.dead}
-                onRemove={handleRemoveCreature}
-              />
-            ))}
-          </div>
-
-          <div className="absolute left-0 right-0 bottom-0 h-[15%] sand-layer rounded-b-xl z-[5]">
+          <div className="absolute left-0 right-0 bottom-0 h-[15%] sand-layer rounded-b-xl z-[5] overflow-hidden">
             <div className="absolute left-0 right-0 top-0 bottom-0">
               {deadCreatures.map(pos => (
                 <div
@@ -324,7 +312,19 @@ export function Tank() {
             </div>
           </div>
 
-          <div className="absolute left-0 right-0 bottom-[15%] h-6 bg-gradient-to-b from-transparent via-amber-900/40 to-transparent z-10" />
+          <div className="absolute left-0 right-0 bottom-[15%] h-6 bg-gradient-to-b from-transparent via-amber-900/40 to-transparent z-[7]" />
+
+          <div className="absolute left-0 right-0 bottom-[14%] z-[8]">
+            {plantCreatures.map(pos => (
+              <FixedCreature
+                key={pos.instanceId}
+                instanceId={pos.instanceId}
+                x={pos.x}
+                dead={pos.dead}
+                onRemove={handleRemoveCreature}
+              />
+            ))}
+          </div>
         </div>
 
         <div className="mt-3 flex gap-2 flex-wrap">
