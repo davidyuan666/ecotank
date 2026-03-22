@@ -35,6 +35,49 @@ export function CreatureCard({ creature, onDragStart }: CreatureCardProps) {
   )
 }
 
+interface MovingCreatureProps {
+  instanceId: string
+  emoji: string
+  x: number
+  y: number
+  speed: number
+  facingLeft: boolean
+  dead: boolean
+  onRemove: (instanceId: string) => void
+}
+
+export function MovingCreature({
+  instanceId, emoji, x, y, speed, facingLeft, dead, onRemove
+}: MovingCreatureProps) {
+  return (
+    <div
+      className={`
+        absolute select-none cursor-pointer transition-[filter,opacity] duration-700
+        flex items-center justify-center
+        ${dead ? 'dead-creature' : ''}
+      `}
+      style={{
+        left: `${x * 100}%`,
+        bottom: `${y * 100}%`,
+        transform: `translateX(-50%) translateY(50%) scaleX(${facingLeft ? -1 : 1})`,
+        fontSize: speed > 0 ? '2rem' : '2.2rem',
+        zIndex: dead ? 5 : 10,
+      }}
+      onClick={() => onRemove(instanceId)}
+      title="点击移除"
+    >
+      <span className={`${speed > 0 ? 'creature-swim' : ''} ${dead ? 'grayscale opacity-50' : ''}`}>
+        {emoji}
+      </span>
+      {speed === 0 && !dead && (
+        <span className="plant-sway absolute inset-0 flex items-center justify-center text-3xl">
+          {emoji}
+        </span>
+      )}
+    </div>
+  )
+}
+
 interface PlacedCreatureItemProps {
   creature: PlacedCreature
   onRemove: (instanceId: string) => void

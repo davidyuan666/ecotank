@@ -12,7 +12,7 @@ export default function Home() {
             🌊 生态鱼缸模拟器
           </h1>
           <p className="text-gray-600 text-sm">
-            拖拽生物到水缸中，观察氧气变化！水草会产生氧气，动物会消耗氧气。
+            拖拽生物到水缸中，生物会自动游动！水草会产生氧气，氧气归零生物会死亡沉底。
           </p>
         </header>
 
@@ -26,8 +26,8 @@ export default function Home() {
         </div>
 
         <footer className="mt-8 text-center text-gray-500 text-sm">
-          <p>💡 小贴士：水草(绿色)会产生氧气，鱼虾螺会消耗氧气</p>
-          <p className="mt-1">保持氧气在1以上，生物才能存活！氧气为0时生物会死亡变暗。</p>
+          <p>💡 小贴士：水草会产生氧气，鱼虾螺会消耗氧气。氧气归零时生物会沉底。</p>
+          <p className="mt-1">点击鱼缸中的生物可将其移除。</p>
         </footer>
       </div>
     </main>

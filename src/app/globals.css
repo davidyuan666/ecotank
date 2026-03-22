@@ -31,3 +31,150 @@ body {
     text-wrap: balance;
   }
 }
+
+@layer components {
+  .aquarium-frame {
+    background: linear-gradient(135deg, #1e3a5f 0%, #0c2340 50%, #1a3355 100%);
+    border-color: #0ea5e9;
+  }
+
+  .sand-layer {
+    background: linear-gradient(to top, #92400e 0%, #b45309 30%, #d97706 60%, #fbbf24 100%);
+  }
+}
+
+.bubble-bg {
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  overflow: hidden;
+  z-index: 1;
+}
+
+.bubble-bg::before,
+.bubble-bg::after {
+  content: '';
+  position: absolute;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.15);
+  animation: bubble-rise linear infinite;
+}
+
+.bubble-bg::before {
+  width: 6px;
+  height: 6px;
+  left: 20%;
+  bottom: 15%;
+  animation-duration: 8s;
+  animation-delay: 0s;
+}
+
+.bubble-bg::after {
+  width: 4px;
+  height: 4px;
+  left: 60%;
+  bottom: 15%;
+  animation-duration: 10s;
+  animation-delay: 3s;
+}
+
+.bubble-1 {
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  left: 35%;
+  bottom: 15%;
+  animation: bubble-rise 7s linear infinite;
+  animation-delay: 1s;
+}
+
+.bubble-2 {
+  position: absolute;
+  width: 3px;
+  height: 3px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.1);
+  left: 75%;
+  bottom: 15%;
+  animation: bubble-rise 12s linear infinite;
+  animation-delay: 5s;
+}
+
+.bubble-3 {
+  position: absolute;
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.08);
+  left: 45%;
+  bottom: 15%;
+  animation: bubble-rise 9s linear infinite;
+  animation-delay: 2s;
+}
+
+.bubble-4 {
+  position: absolute;
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.12);
+  left: 85%;
+  bottom: 15%;
+  animation: bubble-rise 11s linear infinite;
+  animation-delay: 6s;
+}
+
+@keyframes bubble-rise {
+  0% {
+    transform: translateY(0) translateX(0);
+    opacity: 0;
+  }
+  5% {
+    opacity: 1;
+  }
+  90% {
+    opacity: 0.6;
+  }
+  100% {
+    transform: translateY(-520px) translateX(15px);
+    opacity: 0;
+  }
+}
+
+@keyframes plant-sway {
+  0%, 100% {
+    transform: rotate(-3deg) scaleX(var(--facing, 1));
+  }
+  50% {
+    transform: rotate(3deg) scaleX(var(--facing, 1));
+  }
+}
+
+.plant-sway {
+  animation: plant-sway 3s ease-in-out infinite;
+  transform-origin: bottom center;
+}
+
+.creature-swim {
+  animation: swim-wobble 0.8s ease-in-out infinite;
+  display: inline-block;
+}
+
+@keyframes swim-wobble {
+  0%, 100% {
+    transform: translateY(0) rotate(0deg);
+  }
+  25% {
+    transform: translateY(-2px) rotate(1deg);
+  }
+  75% {
+    transform: translateY(1px) rotate(-1deg);
+  }
+}
+
+.dead-creature {
+  filter: grayscale(100%) brightness(0.4);
+  opacity: 0.6;
+}

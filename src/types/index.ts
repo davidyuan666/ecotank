@@ -7,16 +7,23 @@ export interface Creature {
   oxygenChange: number
   emoji: string
   description: string
+  speed?: number
 }
 
 export interface PlacedCreature extends Creature {
   instanceId: string
 }
 
-export interface TankLayer {
-  id: string
-  name: string
-  type: 'water' | 'sand'
-  creatures: PlacedCreature[]
-  maxCapacity: number
+export interface CreaturePosition {
+  instanceId: string
+  x: number
+  y: number
+  vx: number
+  vy: number
+  targetX: number
+  targetY: number
+  layerIndex: number
+  moveTimer: number
+  category: CreatureCategory
+  dead: boolean
 }
