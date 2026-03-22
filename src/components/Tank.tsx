@@ -246,9 +246,8 @@ export function Tank() {
         }} />
 
           <div className="relative z-10">
-            <div className="flex flex-col items-end gap-2 mb-3">
+            <div className="flex justify-between items-start mb-3">
               <ComfortMeter creatureCount={swimmingCreatures.length} />
-              <OxygenMeter level={displayOxygen} />
               <button
                 onClick={handleReset}
                 className="bg-white/10 hover:bg-white/20 text-cyan-100 
@@ -257,6 +256,7 @@ export function Tank() {
               >
                 重置
               </button>
+              <OxygenMeter level={displayOxygen} />
             </div>
 
           <div
