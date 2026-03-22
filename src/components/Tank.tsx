@@ -2,7 +2,7 @@
 
 import { useState, useEffect, useRef, useCallback } from 'react'
 import { Creature, CreaturePosition } from '@/types'
-import { MovingCreature } from './CreatureCard'
+import { MovingCreature, FixedCreature } from './CreatureCard'
 import { OxygenMeter } from './OxygenMeter'
 
 interface LayerInfo {
@@ -32,7 +32,7 @@ function getLayerYRange(layerIndex: number) {
   return { min: top, max: bottom - 0.03 }
 }
 
-function getRandomTarget(layerIndex: number, currentX: number, currentY: number) {
+function getRandomTarget(layerIndex: number, currentX: number) {
   const { min, max } = getLayerYRange(layerIndex)
   const x = Math.max(0.05, Math.min(0.88, currentX + (Math.random() - 0.5) * 0.35))
   const y = min + Math.random() * (max - min)
@@ -41,9 +41,9 @@ function getRandomTarget(layerIndex: number, currentX: number, currentY: number)
 
 function getCreatureSpeed(category: Creature['category']) {
   switch (category) {
-    case 'fish': return 0.007
-    case 'shrimp': return 0.004
-    case 'snail': return 0.0012
+    case 'fish': return 0.005
+    case 'shrimp': return 0.003
+    case 'snail': return 0.001
     default: return 0
   }
 }
@@ -53,13 +53,6 @@ function findAvailableLayer(layers: LayerInfo[]): number {
     if (layers[i].creatures.length < 4) return i
   }
   return 4
-}
-
-const EMOJI_MAP: Record<string, string> = {
-  'goldfish': '🐠', 'koi': '🐟', 'tetra': '🐡',
-  'shrimp': '🦐', 'crystal': '🦞',
-  'apple-snail': '🐚', 'zebra-snail': '🐌',
-  'anacharis': '🌿', 'anubias': '🌱',
 }
 
 const OXYGEN_MAP: Record<string, number> = {
@@ -106,9 +99,16 @@ export function Tank() {
       return updated
     })
 
-    const { min, max } = getLayerYRange(layerIndex)
-    const x = 0.1 + Math.random() * 0.7
-    const y = min + Math.random() * (max - min)
+    let x: number, y: number
+
+    if (creature.category === 'plant') {
+      x = 0.1 + Math.random() * 0.75
+      y = 0.86 + Math.random() * 0.08
+    } else {
+      const { min, max } = getLayerYRange(layerIndex)
+      x = 0.1 + Math.random() * 0.7
+      y = min + Math.random() * (max - min)
+    }
 
     setPositions(prev => [
       ...prev,
@@ -124,6 +124,7 @@ export function Tank() {
         moveTimer: Math.random() * 100,
         category: creature.category,
         dead: false,
+        emoji: creature.emoji,
       },
     ])
   }
@@ -151,7 +152,8 @@ export function Tank() {
       lastTimeRef.current = time
 
       setPositions(prev => prev.map(p => {
-        if (p.dead) return p
+        if (p.dead || p.category === 'plant') return p
+
         const speed = getCreatureSpeed(p.category)
         if (speed === 0) return p
 
@@ -160,7 +162,7 @@ export function Tank() {
         let { vx, vy } = p
 
         if (newTimer > 2000 + Math.random() * 2000) {
-          const next = getRandomTarget(p.layerIndex, p.x, p.y)
+          const next = getRandomTarget(p.layerIndex, p.x)
           targetX = next.x
           targetY = next.y
           newTimer = 0
@@ -172,11 +174,11 @@ export function Tank() {
 
         if (dist > 0.005) {
           vx += (dx / dist) * speed * (delta / 16.67)
-          vy += (dy / dist) * speed * (delta / 16.67)
+          vy += (dy / dist) * speed * (delta / 16.67) * 0.3
         }
 
-        vx *= 0.92
-        vy *= 0.92
+        vx *= 0.90
+        vy *= 0.80
 
         let newX = p.x + vx
         let newY = p.y + vy
@@ -184,8 +186,8 @@ export function Tank() {
         const { min, max } = getLayerYRange(p.layerIndex)
         if (newX < 0.05) { newX = 0.05; vx = Math.abs(vx) * 0.5 }
         if (newX > 0.88) { newX = 0.88; vx = -Math.abs(vx) * 0.5 }
-        if (newY < min) { newY = min; vy = Math.abs(vy) * 0.5 }
-        if (newY > max) { newY = max; vy = -Math.abs(vy) * 0.5 }
+        if (newY < min) { newY = min; vy = Math.abs(vy) * 0.3 }
+        if (newY > max) { newY = max; vy = -Math.abs(vy) * 0.3 }
 
         return { ...p, x: newX, y: newY, vx, vy, targetX, targetY, moveTimer: newTimer }
       }))
@@ -201,8 +203,8 @@ export function Tank() {
     if (isDead) {
       setPositions(prev => prev.map(p => {
         if (!p.dead && p.layerIndex !== 4) {
-          setLayers(layers => layers.map((layer, i) => {
-            if (i === 4) {
+          setLayers(layers => layers.map((layer) => {
+            if (layer.id === 'sand') {
               return { ...layer, creatures: [...layer.creatures, p.instanceId] }
             }
             return { ...layer, creatures: layer.creatures.filter(id => id !== p.instanceId) }
@@ -213,6 +215,9 @@ export function Tank() {
       }))
     }
   }, [isDead])
+
+  const swimmingCreatures = positions.filter(p => p.category !== 'plant')
+  const plantCreatures = positions.filter(p => p.category === 'plant')
 
   return (
     <div className="w-full">
@@ -259,23 +264,33 @@ export function Tank() {
               }
             }}
           >
-            {positions.map(pos => (
+            {swimmingCreatures.map(pos => (
               <MovingCreature
                 key={pos.instanceId}
                 instanceId={pos.instanceId}
-                emoji={EMOJI_MAP[pos.instanceId.split('-')[0]] || '❓'}
+                emoji={pos.emoji}
+                category={pos.category}
                 x={pos.x}
                 y={pos.y}
-                speed={getCreatureSpeed(pos.category)}
-                facingLeft={pos.vx < -0.0005}
+                facingLeft={pos.vx < -0.0003}
                 dead={pos.dead}
                 onRemove={handleRemoveCreature}
               />
             ))}
           </div>
 
-          <div className="absolute left-0 right-0 bottom-0 h-[15%] sand-layer rounded-b-xl z-10">
+          <div className="absolute left-0 right-0 bottom-0 h-[15%] sand-layer rounded-b-xl z-[5]">
             <div className="absolute -top-4 left-0 right-0 h-5 bg-gradient-to-b from-transparent to-amber-800/50" />
+            {plantCreatures.map(pos => (
+              <FixedCreature
+                key={pos.instanceId}
+                instanceId={pos.instanceId}
+                emoji={pos.emoji}
+                x={pos.x}
+                dead={pos.dead}
+                onRemove={handleRemoveCreature}
+              />
+            ))}
           </div>
 
           <div className="absolute left-0 right-0 bottom-[15%] h-px bg-amber-700/60 z-10" />

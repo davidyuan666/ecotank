@@ -26,4 +26,5 @@ export interface CreaturePosition {
   moveTimer: number
   category: CreatureCategory
   dead: boolean
+  emoji: string
 }

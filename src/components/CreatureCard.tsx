@@ -1,6 +1,6 @@
 'use client'
 
-import { Creature, PlacedCreature } from '@/types'
+import { Creature, PlacedCreature, CreatureCategory } from '@/types'
 
 interface CreatureCardProps {
   creature: Creature
@@ -38,42 +38,71 @@ export function CreatureCard({ creature, onDragStart }: CreatureCardProps) {
 interface MovingCreatureProps {
   instanceId: string
   emoji: string
+  category: CreatureCategory
   x: number
   y: number
-  speed: number
   facingLeft: boolean
   dead: boolean
   onRemove: (instanceId: string) => void
 }
 
 export function MovingCreature({
-  instanceId, emoji, x, y, speed, facingLeft, dead, onRemove
+  instanceId, emoji, category, x, y, facingLeft, dead, onRemove
 }: MovingCreatureProps) {
+  const getCreatureClass = () => {
+    switch (category) {
+      case 'fish': return 'creature-fish'
+      case 'shrimp': return 'creature-shrimp'
+      case 'snail': return 'creature-snail'
+      default: return ''
+    }
+  }
+
   return (
     <div
-      className={`
-        absolute select-none cursor-pointer transition-[filter,opacity] duration-700
-        flex items-center justify-center
-        ${dead ? 'dead-creature' : ''}
-      `}
+      className={`absolute select-none cursor-pointer ${dead ? 'dead-creature' : ''} ${getCreatureClass()}`}
       style={{
         left: `${x * 100}%`,
         bottom: `${y * 100}%`,
-        transform: `translateX(-50%) translateY(50%) scaleX(${facingLeft ? -1 : 1})`,
-        fontSize: speed > 0 ? '2rem' : '2.2rem',
+        transform: `translateX(-50%) translateY(50%)`,
         zIndex: dead ? 5 : 10,
       }}
       onClick={() => onRemove(instanceId)}
       title="点击移除"
     >
-      <span className={`${speed > 0 ? 'creature-swim' : ''} ${dead ? 'grayscale opacity-50' : ''}`}>
-        {emoji}
-      </span>
-      {speed === 0 && !dead && (
-        <span className="plant-sway absolute inset-0 flex items-center justify-center text-3xl">
+      <div className={`relative ${facingLeft ? 'scale-x-[-1]' : ''} ${!dead ? 'creature-idle' : ''}`}>
+        <span className={`text-3xl ${dead ? 'grayscale opacity-60' : ''}`}>
           {emoji}
         </span>
-      )}
+      </div>
+    </div>
+  )
+}
+
+interface FixedCreatureProps {
+  instanceId: string
+  emoji: string
+  x: number
+  dead: boolean
+  onRemove: (instanceId: string) => void
+}
+
+export function FixedCreature({ instanceId, emoji, x, dead, onRemove }: FixedCreatureProps) {
+  return (
+    <div
+      className={`absolute select-none cursor-pointer ${dead ? 'dead-creature' : ''}`}
+      style={{
+        left: `${x * 100}%`,
+        bottom: '8px',
+        transform: 'translateX(-50%)',
+        zIndex: dead ? 5 : 8,
+      }}
+      onClick={() => onRemove(instanceId)}
+      title="点击移除"
+    >
+      <div className={`plant-container ${!dead ? 'plant-sway' : 'grayscale opacity-60'}`}>
+        <span className="text-5xl leading-none">{emoji}</span>
+      </div>
     </div>
   )
 }

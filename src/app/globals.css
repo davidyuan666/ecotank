@@ -145,11 +145,18 @@ body {
 
 @keyframes plant-sway {
   0%, 100% {
-    transform: rotate(-3deg) scaleX(var(--facing, 1));
+    transform: rotate(-4deg);
   }
   50% {
-    transform: rotate(3deg) scaleX(var(--facing, 1));
+    transform: rotate(4deg);
   }
+}
+
+.plant-container {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  height: 60px;
 }
 
 .plant-sway {
@@ -157,21 +164,68 @@ body {
   transform-origin: bottom center;
 }
 
-.creature-swim {
-  animation: swim-wobble 0.8s ease-in-out infinite;
-  display: inline-block;
+@keyframes creature-idle {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-1px);
+  }
 }
 
-@keyframes swim-wobble {
+.creature-idle {
+  animation: creature-idle 2s ease-in-out infinite;
+}
+
+@keyframes tail-wag {
   0%, 100% {
-    transform: translateY(0) rotate(0deg);
+    transform: rotate(0deg);
   }
   25% {
-    transform: translateY(-2px) rotate(1deg);
+    transform: rotate(8deg);
   }
   75% {
-    transform: translateY(1px) rotate(-1deg);
+    transform: rotate(-8deg);
   }
+}
+
+.creature-fish .text-3xl::after {
+  content: '';
+  position: absolute;
+  right: -6px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 8px;
+  height: 12px;
+  background: rgba(255, 200, 100, 0.6);
+  border-radius: 0 50% 50% 0;
+  animation: tail-wag 0.6s ease-in-out infinite;
+}
+
+.creature-fish {
+  position: relative;
+}
+
+.creature-shrimp {
+  position: relative;
+}
+
+.creature-shrimp .text-3xl::after {
+  content: '';
+  position: absolute;
+  left: -4px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6px;
+  height: 2px;
+  background: rgba(200, 200, 200, 0.5);
+  border-radius: 50%;
+  animation: tail-wag 0.4s ease-in-out infinite;
+}
+
+.creature-snail {
+  position: relative;
+  animation: creature-idle 3s ease-in-out infinite;
 }
 
 .dead-creature {
