@@ -262,7 +262,7 @@ export function Tank() {
           <div
             ref={tankRef}
             className="aquarium-container relative rounded-xl overflow-hidden"
-            style={{ height: 'calc(80vh - 140px)' }}
+            style={{ height: 'calc(90vh - 140px)' }}
           >
             <div className="absolute inset-0 bg-gradient-to-b from-cyan-900/60 via-blue-900/50 to-sky-900/80" />
             <div className="absolute inset-0"
