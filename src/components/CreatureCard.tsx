@@ -121,14 +121,16 @@ export function FixedCreature({ instanceId, x, dead, onRemove }: FixedCreaturePr
         left: `${x * 100}%`,
         bottom: '6px',
         transform: 'translateX(-50%)',
-        width: isAnubias ? '56px' : '38px',
-        height: isAnubias ? '66px' : '76px',
+        width: isAnubias ? '120px' : '80px',
+        height: isAnubias ? '140px' : '180px',
         zIndex: dead ? 5 : 8,
       }}
       onClick={() => onRemove(instanceId)}
       title="点击移除"
     >
-      {isAnubias ? <AnubiasSVG /> : <AnacharisSVG />}
+      <div className="w-full h-full opacity-80">
+        {isAnubias ? <AnubiasSVG /> : <AnacharisSVG />}
+      </div>
     </div>
   )
 }

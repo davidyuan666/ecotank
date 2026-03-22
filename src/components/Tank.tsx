@@ -249,8 +249,15 @@ export function Tank() {
           className="aquarium-container relative rounded-xl overflow-hidden"
           style={{ height: '520px' }}
         >
-          <div className="absolute inset-0 bg-gradient-to-b from-cyan-400/20 via-cyan-500/30 to-cyan-700/60" />
-          <div className="absolute top-0 left-0 right-0 h-8 bg-gradient-to-b from-sky-300/50 to-transparent pointer-events-none z-20" />
+          <div className="absolute inset-0 bg-gradient-to-b from-cyan-400/15 via-cyan-600/25 to-blue-800/55" />
+          <div className="absolute inset-0 opacity-30"
+            style={{
+              backgroundImage: `radial-gradient(ellipse 200px 100px at 20% 30%, rgba(150,220,255,0.3) 0%, transparent 70%),
+                radial-gradient(ellipse 150px 80px at 70% 50%, rgba(150,220,255,0.2) 0%, transparent 70%),
+                radial-gradient(ellipse 180px 90px at 50% 20%, rgba(200,240,255,0.25) 0%, transparent 70%)`,
+            }}
+          />
+          <div className="absolute top-0 left-0 right-0 h-8 bg-gradient-to-b from-sky-300/40 to-transparent pointer-events-none z-20" />
           <div className="absolute inset-0 bubble-bg z-[1]" key={bubbleKey}>
             <div className="bubble-1" />
             <div className="bubble-2" />
@@ -287,7 +294,6 @@ export function Tank() {
           </div>
 
           <div className="absolute left-0 right-0 bottom-0 h-[15%] sand-layer rounded-b-xl z-[5]">
-            <div className="absolute -top-4 left-0 right-0 h-5 bg-gradient-to-b from-transparent to-amber-800/50" />
             {plantCreatures.map(pos => (
               <FixedCreature
                 key={pos.instanceId}
@@ -315,7 +321,7 @@ export function Tank() {
             </div>
           </div>
 
-          <div className="absolute left-0 right-0 bottom-[15%] h-px bg-amber-700/60 z-10" />
+          <div className="absolute left-0 right-0 bottom-[15%] h-6 bg-gradient-to-b from-transparent via-amber-900/40 to-transparent z-10" />
         </div>
 
         <div className="mt-3 flex gap-2 flex-wrap">

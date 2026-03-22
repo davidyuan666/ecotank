@@ -189,42 +189,56 @@ export function ZebraSnailSVG({ className, style }: SVGProps) {
 
 export function AnacharisSVG({ className, style }: SVGProps) {
   return (
-    <svg viewBox="0 0 40 80" className={className} style={style} xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 60 180" className={className} style={style} xmlns="http://www.w3.org/2000/svg">
       <defs>
         <linearGradient id="anacharis-stem" x1="0%" y1="0%" x2="0%" y2="100%">
-          <stop offset="0%" stopColor="#2D6A4F" />
-          <stop offset="100%" stopColor="#40916C" />
+          <stop offset="0%" stopColor="#52B788" stopOpacity="0.75" />
+          <stop offset="100%" stopColor="#40916C" stopOpacity="0.85" />
+        </linearGradient>
+        <linearGradient id="anacharis-leaf1" x1="0%" y1="0%" x2="100%" y2="100%">
+          <stop offset="0%" stopColor="#74C69D" stopOpacity="0.7" />
+          <stop offset="100%" stopColor="#52B788" stopOpacity="0.8" />
+        </linearGradient>
+        <linearGradient id="anacharis-leaf2" x1="100%" y1="0%" x2="0%" y2="100%">
+          <stop offset="0%" stopColor="#95D5B2" stopOpacity="0.65" />
+          <stop offset="100%" stopColor="#40916C" stopOpacity="0.75" />
         </linearGradient>
       </defs>
-      <rect x="18" y="10" width="4" height="65" rx="2" fill="url(#anacharis-stem)" />
-      <path d="M20 20 Q8 15 6 8 Q14 14 20 20Z" fill="#52B788" />
-      <path d="M20 20 Q32 15 34 8 Q26 14 20 20Z" fill="#40916C" />
-      <path d="M20 35 Q6 28 4 20 Q14 28 20 35Z" fill="#52B788" />
-      <path d="M20 35 Q34 28 36 20 Q28 28 20 35Z" fill="#40916C" />
-      <path d="M20 50 Q8 42 6 32 Q14 42 20 50Z" fill="#52B788" />
-      <path d="M20 50 Q32 42 34 32 Q26 42 20 50Z" fill="#40916C" />
-      <path d="M20 65 Q10 58 8 50 Q16 58 20 65Z" fill="#52B788" />
-      <path d="M20 65 Q30 58 32 50 Q24 58 20 65Z" fill="#40916C" />
-      <ellipse cx="20" cy="75" rx="8" ry="3" fill="#2D6A4F" opacity="0.5" />
+      <rect x="27" y="20" width="6" height="155" rx="3" fill="url(#anacharis-stem)" />
+      {[40, 70, 100, 130, 160].map((y, i) => (
+        <g key={y}>
+          <path d={`M30 ${y} Q5 ${y - 18} 3 ${y - 35} Q18 ${y - 10} 30 ${y}Z`} fill="url(#anacharis-leaf1)" />
+          <path d={`M30 ${y} Q55 ${y - 18} 57 ${y - 35} Q42 ${y - 10} 30 ${y}Z`} fill="url(#anacharis-leaf2)" />
+        </g>
+      ))}
     </svg>
   )
 }
 
 export function AnubiasSVG({ className, style }: SVGProps) {
   return (
-    <svg viewBox="0 0 60 70" className={className} style={style} xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 120 140" className={className} style={style} xmlns="http://www.w3.org/2000/svg">
       <defs>
-        <radialGradient id="anubias-leaf" cx="30%" cy="30%">
-          <stop offset="0%" stopColor="#52B788" />
-          <stop offset="100%" stopColor="#1B4332" />
+        <radialGradient id="anubias-leaf" cx="35%" cy="35%">
+          <stop offset="0%" stopColor="#95D5B2" stopOpacity="0.7" />
+          <stop offset="60%" stopColor="#52B788" stopOpacity="0.75" />
+          <stop offset="100%" stopColor="#2D6A4F" stopOpacity="0.85" />
         </radialGradient>
+        <filter id="anubias-blur">
+          <feGaussianBlur stdDeviation="0.5" />
+        </filter>
       </defs>
-      <path d="M30 65 Q28 40 18 25 Q8 15 12 5 Q22 15 30 20 Q38 15 48 5 Q52 15 42 25 Q32 40 30 65Z" fill="url(#anubias-leaf)" />
-      <path d="M30 65 Q28 45 22 30 Q18 22 20 15 Q26 22 30 25 Q34 22 40 15 Q42 22 38 30 Q32 45 30 65Z" fill="#40916C" opacity="0.5" />
-      <path d="M30 60 Q20 45 16 30" stroke="#2D6A4F" strokeWidth="1.5" fill="none" opacity="0.4" />
-      <path d="M22 30 Q14 20 10 10 Q18 18 22 30Z" fill="#52B788" opacity="0.7" />
-      <path d="M38 30 Q46 20 50 10 Q42 18 38 30Z" fill="#52B788" opacity="0.7" />
-      <ellipse cx="30" cy="67" rx="10" ry="3" fill="#2D6A4F" opacity="0.5" />
+      <path d="M60 130 Q55 80 35 50 Q15 30 24 10 Q44 30 60 40 Q76 30 96 10 Q105 30 85 50 Q65 80 60 130Z" fill="url(#anubias-leaf)" />
+      <path d="M60 120 Q56 75 40 50 Q25 32 32 15 Q48 32 60 38 Q72 32 88 15 Q95 32 80 50 Q64 75 60 120Z" fill="#52B788" opacity="0.45" />
+      <path d="M60 110 Q40 80 30 55" stroke="#2D6A4F" strokeWidth="2" fill="none" opacity="0.3" />
+      <path d="M60 110 Q80 80 90 55" stroke="#2D6A4F" strokeWidth="2" fill="none" opacity="0.3" />
+      <path d="M60 110 Q60 70 60 50" stroke="#2D6A4F" strokeWidth="1.5" fill="none" opacity="0.3" />
+      {[20, 40, 60, 80, 100].map((y, i) => (
+        <g key={y}>
+          <path d={`M60 ${y} Q30 ${y - 25} 22 ${y - 45} Q42 ${y - 20} 60 ${y}Z`} fill="#74C69D" opacity="0.5" />
+          <path d={`M60 ${y} Q90 ${y - 25} 98 ${y - 45} Q78 ${y - 20} 60 ${y}Z`} fill="#40916C" opacity="0.5" />
+        </g>
+      ))}
     </svg>
   )
 }
