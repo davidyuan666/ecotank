@@ -15,8 +15,8 @@ export const creatures: Creature[] = [
   { id: 'zebra-snail', name: '斑马螺', category: 'snail', oxygenChange: -1, emoji: '🐌', description: '勤劳的除藻螺' },
   
   // 水草（产生氧气）
-  { id: 'anacharis', name: '金鱼草', category: 'plant', oxygenChange: 2, emoji: '🌿', description: '产生氧气的水草' },
-  { id: 'anubias', name: '水榕', category: 'plant', oxygenChange: 1, emoji: '🌱', description: '易养活的水草' },
+  { id: 'anacharis', name: '金鱼草', category: 'plant', oxygenChange: 10, emoji: '🌿', description: '产生氧气的水草' },
+  { id: 'anubias', name: '水榕', category: 'plant', oxygenChange: 5, emoji: '🌱', description: '易养活的水草' },
 ]
 
 export const creaturesByCategory = {

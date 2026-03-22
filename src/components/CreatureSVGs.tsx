@@ -87,52 +87,77 @@ export function TetraSVG({ className, style }: SVGProps) {
 
 export function ShrimpSVG({ className, style }: SVGProps) {
   return (
-    <svg viewBox="0 0 52 28" className={className} style={style} xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 80 40" className={className} style={style} xmlns="http://www.w3.org/2000/svg">
       <defs>
         <linearGradient id="shrimp-body" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="#adb5bd" />
-          <stop offset="40%" stopColor="#6c757d" />
-          <stop offset="100%" stopColor="#495057" />
+          <stop offset="0%" stopColor="#3d5a3d" />
+          <stop offset="30%" stopColor="#2d4a2d" />
+          <stop offset="70%" stopColor="#3a5038" />
+          <stop offset="100%" stopColor="#1a2e1a" />
         </linearGradient>
       </defs>
-      <path d="M44 14 Q46 10 44 6 Q40 10 44 14Z" fill="#adb5bd" />
-      <path d="M42 14 Q44 10 42 6 Q38 10 42 14Z" fill="#ced4da" opacity="0.7" />
-      <path d="M40 14 Q42 10 40 6 Q36 10 40 14Z" fill="#adb5bd" />
-      <ellipse cx="35" cy="14" rx="8" ry="5" fill="url(#shrimp-body)" />
-      <path d="M28 10 Q24 6 20 8 Q24 12 28 10Z" fill="#6c757d" />
-      <path d="M28 18 Q24 22 20 20 Q24 16 28 18Z" fill="#6c757d" />
-      <ellipse cx="20" cy="14" rx="9" ry="6" fill="url(#shrimp-body)" />
-      <ellipse cx="12" cy="14" rx="5" ry="4" fill="#adb5bd" />
-      <ellipse cx="7" cy="14" rx="3" ry="2.5" fill="#ced4da" />
-      <circle cx="7" cy="11" r="2.5" fill="#343a40" />
-      <circle cx="8" cy="10.5" r="0.8" fill="#fff" opacity="0.6" />
+      <path d="M72 20 Q75 14 72 8 Q67 14 72 20Z" fill="#4a6b4a" />
+      <path d="M70 20 Q73 14 70 8 Q65 14 70 20Z" fill="#5a7a5a" opacity="0.6" />
+      <path d="M68 20 Q71 14 68 8 Q63 14 68 20Z" fill="#3d5a3d" />
+      <ellipse cx="60" cy="20" rx="12" ry="7" fill="url(#shrimp-body)" />
+      <path d="M50 12 Q44 6 38 8 Q44 14 50 12Z" fill="#2d4a2d" />
+      <path d="M50 28 Q44 34 38 32 Q44 26 50 28Z" fill="#2d4a2d" />
+      <ellipse cx="40" cy="20" rx="14" ry="9" fill="url(#shrimp-body)" />
+      <path d="M28 13 Q22 8 16 10 Q22 16 28 13Z" fill="#2d4a2d" />
+      <path d="M28 27 Q22 32 16 30 Q22 24 28 27Z" fill="#2d4a2d" />
+      <ellipse cx="16" cy="20" rx="10" ry="7" fill="url(#shrimp-body)" />
+      <ellipse cx="8" cy="20" rx="7" ry="6" fill="#4a6b4a" />
+      <ellipse cx="3" cy="20" rx="4" ry="3" fill="#5a7a5a" />
+      <circle cx="3" cy="16" r="2.5" fill="#1a2e1a" />
+      <circle cx="4.5" cy="15" r="1" fill="#fff" opacity="0.5" />
+      <line x1="6" y1="14" x2="14" y2="8" stroke="#3d5a3d" strokeWidth="1.2" strokeLinecap="round" />
+      <line x1="6" y1="15" x2="16" y2="10" stroke="#3d5a3d" strokeWidth="1" strokeLinecap="round" />
+      <line x1="6" y1="26" x2="14" y2="32" stroke="#3d5a3d" strokeWidth="1.2" strokeLinecap="round" />
+      <line x1="6" y1="25" x2="16" y2="30" stroke="#3d5a3d" strokeWidth="1" strokeLinecap="round" />
     </svg>
   )
 }
 
 export function CrystalShrimpSVG({ className, style }: SVGProps) {
   return (
-    <svg viewBox="0 0 52 28" className={className} style={style} xmlns="http://www.w3.org/2000/svg">
+    <svg viewBox="0 0 80 40" className={className} style={style} xmlns="http://www.w3.org/2000/svg">
       <defs>
         <linearGradient id="crystal-body" x1="0%" y1="0%" x2="100%" y2="0%">
-          <stop offset="0%" stopColor="#e0f7fa" />
-          <stop offset="50%" stopColor="#80deea" />
-          <stop offset="100%" stopColor="#4dd0e1" />
+          <stop offset="0%" stopColor="#fff" stopOpacity="0.95" />
+          <stop offset="40%" stopColor="#f0f8ff" stopOpacity="0.9" />
+          <stop offset="100%" stopColor="#e0f0ff" stopOpacity="0.85" />
         </linearGradient>
+        <clipPath id="crystal-clip">
+          <path d="M72 20 Q75 14 72 8 Q67 14 72 20Z" />
+          <ellipse cx="60" cy="20" rx="12" ry="7" />
+          <ellipse cx="40" cy="20" rx="14" ry="9" />
+          <ellipse cx="16" cy="20" rx="10" ry="7" />
+          <ellipse cx="8" cy="20" rx="7" ry="6" />
+        </clipPath>
       </defs>
-      <path d="M44 14 Q46 10 44 6 Q40 10 44 14Z" fill="#b2ebf2" />
-      <path d="M42 14 Q44 10 42 6 Q38 10 42 14Z" fill="#e0f7fa" opacity="0.8" />
-      <path d="M40 14 Q42 10 40 6 Q36 10 40 14Z" fill="#b2ebf2" />
-      <ellipse cx="35" cy="14" rx="8" ry="5" fill="url(#crystal-body)" opacity="0.8" />
-      <path d="M28 10 Q24 6 20 8 Q24 12 28 10Z" fill="#4dd0e1" />
-      <path d="M28 18 Q24 22 20 20 Q24 16 28 18Z" fill="#4dd0e1" />
-      <ellipse cx="20" cy="14" rx="9" ry="6" fill="url(#crystal-body)" opacity="0.7" />
-      <ellipse cx="12" cy="14" rx="5" ry="4" fill="#e0f7fa" opacity="0.6" />
-      <ellipse cx="7" cy="14" rx="3" ry="2.5" fill="#b2ebf2" />
-      <circle cx="7" cy="11" r="2.5" fill="#0097a7" opacity="0.8" />
-      <circle cx="8" cy="10.5" r="0.8" fill="#fff" opacity="0.8" />
-      <line x1="15" y1="10" x2="20" y2="8" stroke="#fff" strokeWidth="0.5" opacity="0.4" />
-      <line x1="25" y1="12" x2="32" y2="10" stroke="#fff" strokeWidth="0.5" opacity="0.4" />
+      <path d="M72 20 Q75 14 72 8 Q67 14 72 20Z" fill="#c0e8f0" opacity="0.8" />
+      <path d="M70 20 Q73 14 70 8 Q65 14 70 20Z" fill="#e0f8ff" opacity="0.9" />
+      <ellipse cx="60" cy="20" rx="12" ry="7" fill="url(#crystal-body)" />
+      <rect x="52" y="13" width="8" height="3" rx="1.5" fill="#c0392b" opacity="0.7" clipPath="url(#crystal-clip)" />
+      <path d="M50 12 Q44 6 38 8 Q44 14 50 12Z" fill="#80c8d8" opacity="0.6" />
+      <path d="M50 28 Q44 34 38 32 Q44 26 50 28Z" fill="#80c8d8" opacity="0.6" />
+      <ellipse cx="40" cy="20" rx="14" ry="9" fill="url(#crystal-body)" />
+      <rect x="32" y="11" width="10" height="3.5" rx="1.5" fill="#c0392b" opacity="0.7" clipPath="url(#crystal-clip)" />
+      <rect x="38" y="25" width="8" height="3" rx="1.5" fill="#c0392b" opacity="0.5" clipPath="url(#crystal-clip)" />
+      <path d="M28 13 Q22 8 16 10 Q22 16 28 13Z" fill="#80c8d8" opacity="0.6" />
+      <path d="M28 27 Q22 32 16 30 Q22 24 28 27Z" fill="#80c8d8" opacity="0.6" />
+      <ellipse cx="16" cy="20" rx="10" ry="7" fill="url(#crystal-body)" />
+      <ellipse cx="8" cy="20" rx="7" ry="6" fill="#e0f8ff" opacity="0.85" />
+      <ellipse cx="3" cy="20" rx="4" ry="3" fill="#c0e8f0" opacity="0.7" />
+      <circle cx="3" cy="16" r="2.5" fill="#006080" opacity="0.6" />
+      <circle cx="4.5" cy="15" r="1" fill="#fff" opacity="0.7" />
+      <line x1="6" y1="14" x2="14" y2="8" stroke="#a0d8e8" strokeWidth="1" strokeLinecap="round" opacity="0.8" />
+      <line x1="6" y1="15" x2="16" y2="10" stroke="#a0d8e8" strokeWidth="0.8" strokeLinecap="round" opacity="0.7" />
+      <line x1="6" y1="26" x2="14" y2="32" stroke="#a0d8e8" strokeWidth="1" strokeLinecap="round" opacity="0.8" />
+      <line x1="6" y1="25" x2="16" y2="30" stroke="#a0d8e8" strokeWidth="0.8" strokeLinecap="round" opacity="0.7" />
+      <line x1="20" y1="13" x2="28" y2="8" stroke="#fff" strokeWidth="0.5" opacity="0.5" />
+      <line x1="40" y1="12" x2="50" y2="7" stroke="#fff" strokeWidth="0.5" opacity="0.5" />
+      <line x1="55" y1="13" x2="65" y2="8" stroke="#fff" strokeWidth="0.5" opacity="0.5" />
     </svg>
   )
 }

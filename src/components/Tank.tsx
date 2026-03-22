@@ -56,7 +56,7 @@ function findAvailableLayer(layers: LayerInfo[]): number {
 }
 
 const OXYGEN_MAP: Record<string, number> = {
-  'fish': -3, 'shrimp': -1.5, 'snail': -1, 'plant': 2,
+  'fish': -3, 'shrimp': -1.5, 'snail': -1,
 }
 
 export function Tank() {
@@ -76,7 +76,7 @@ export function Tank() {
     let total = 0
     positions.forEach(p => {
       if (!p.dead) {
-        total += OXYGEN_MAP[p.category] || 0
+        total += p.oxygenChange
       }
     })
     return Math.max(0, Math.min(100, total))
@@ -126,6 +126,7 @@ export function Tank() {
         category: creature.category,
         dead: false,
         emoji: creature.emoji,
+        oxygenChange: creature.oxygenChange,
       },
     ])
   }

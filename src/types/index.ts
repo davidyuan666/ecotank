@@ -27,4 +27,5 @@ export interface CreaturePosition {
   category: CreatureCategory
   dead: boolean
   emoji: string
+  oxygenChange: number
 }
