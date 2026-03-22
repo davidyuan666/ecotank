@@ -1,4 +1,4 @@
-export type CreatureCategory = 'fish' | 'shrimp' | 'snail' | 'plant'
+export type CreatureCategory = 'fish' | 'shrimp' | 'snail' | 'plant' | 'sand' | 'water'
 
 export interface Creature {
   id: string

@@ -21,7 +21,7 @@ const LAYER_CONFIGS: LayerInfo[] = [
   { id: 'sand', name: '沙底层', type: 'sand', creatures: [] },
 ]
 
-const WATER_SPLIT = 0.85
+const WATER_SPLIT = 0.80
 const LAYER_SPLIT = WATER_SPLIT / 4
 
 function getLayerYRange(layerIndex: number) {
@@ -56,15 +56,13 @@ function findAvailableLayer(layers: LayerInfo[]): number {
   return 4
 }
 
-const OXYGEN_MAP: Record<string, number> = {
-  'fish': -3, 'shrimp': -1.5, 'snail': -1,
-}
-
 export function Tank() {
   const [layers, setLayers] = useState<LayerInfo[]>(
     LAYER_CONFIGS.map(l => ({ ...l, creatures: [] }))
   )
   const [positions, setPositions] = useState<CreaturePosition[]>([])
+  const [hasSand, setHasSand] = useState(false)
+  const [hasWater, setHasWater] = useState(false)
   const [bubbleKey, setBubbleKey] = useState(0)
   const animRef = useRef<number>(0)
   const lastTimeRef = useRef<number>(0)
@@ -76,7 +74,7 @@ export function Tank() {
   const calculateOxygen = useCallback(() => {
     let total = 0
     positions.forEach(p => {
-      if (!p.dead) {
+      if (!p.dead && p.category !== 'sand' && p.category !== 'water') {
         total += p.oxygenChange
       }
     })
@@ -89,6 +87,51 @@ export function Tank() {
 
   const handleDrop = (creature: Creature) => {
     const instanceId = `${creature.id}-${Date.now()}-${Math.random()}`
+
+    if (creature.category === 'sand') {
+      if (hasSand) return
+      setHasSand(true)
+      setPositions(prev => [
+        ...prev,
+        {
+          instanceId,
+          x: 0, y: 0,
+          vx: 0, vy: 0,
+          targetX: 0, targetY: 0,
+          layerIndex: 4,
+          moveTimer: 0,
+          category: 'sand',
+          dead: false,
+          emoji: creature.emoji,
+          oxygenChange: 0,
+        },
+      ])
+      return
+    }
+
+    if (creature.category === 'water') {
+      if (hasWater || !hasSand) return
+      setHasWater(true)
+      setPositions(prev => [
+        ...prev,
+        {
+          instanceId,
+          x: 0, y: 0,
+          vx: 0, vy: 0,
+          targetX: 0, targetY: 0,
+          layerIndex: 0,
+          moveTimer: 0,
+          category: 'water',
+          dead: false,
+          emoji: creature.emoji,
+          oxygenChange: 0,
+        },
+      ])
+      return
+    }
+
+    if (!hasSand || !hasWater) return
+
     const isPlant = creature.category === 'plant'
     
     if (isPlant) {
@@ -112,7 +155,7 @@ export function Tank() {
 
     if (isPlant) {
       x = 0.1 + Math.random() * 0.75
-      y = 0.86 + Math.random() * 0.08
+      y = 0.82 + Math.random() * 0.08
     } else {
       const { min, max } = getLayerYRange(layerIndex)
       x = 0.1 + Math.random() * 0.7
@@ -140,6 +183,13 @@ export function Tank() {
   }
 
   const handleRemoveCreature = (instanceId: string) => {
+    const creature = positions.find(p => p.instanceId === instanceId)
+    if (creature?.category === 'sand') {
+      setHasSand(false)
+    }
+    if (creature?.category === 'water') {
+      setHasWater(false)
+    }
     setLayers(prev => prev.map(l => ({
       ...l,
       creatures: l.creatures.filter(id => id !== instanceId),
@@ -151,6 +201,8 @@ export function Tank() {
     cancelAnimationFrame(animRef.current)
     setLayers(LAYER_CONFIGS.map(l => ({ ...l, creatures: [] })))
     setPositions([])
+    setHasSand(false)
+    setHasWater(false)
     setBubbleKey(k => k + 1)
     lastTimeRef.current = 0
   }
@@ -162,7 +214,7 @@ export function Tank() {
       lastTimeRef.current = time
 
       setPositions(prev => prev.map(p => {
-        if (p.dead || p.category === 'plant') return p
+        if (p.dead || p.category === 'plant' || p.category === 'sand' || p.category === 'water') return p
 
         const speed = getCreatureSpeed(p.category)
         if (speed === 0) return p
@@ -182,24 +234,19 @@ export function Tank() {
         const dy = targetY - p.y
         const dist = Math.sqrt(dx * dx + dy * dy)
 
-        if (dist > 0.005) {
-          vx += (dx / dist) * speed * (delta / 16.67)
-          vy += (dy / dist) * speed * (delta / 16.67) * 0.3
+        if (dist > 0.01) {
+          vx = (dx / dist) * speed
+          vy = (dy / dist) * speed
         }
 
-        vx *= 0.90
-        vy *= 0.80
-
-        let newX = p.x + vx
-        let newY = p.y + vy
-
-        const { min, max } = getLayerYRange(p.layerIndex)
-        if (newX < 0.05) { newX = 0.05; vx = Math.abs(vx) * 0.5 }
-        if (newX > 0.88) { newX = 0.88; vx = -Math.abs(vx) * 0.5 }
-        if (newY < min) { newY = min; vy = Math.abs(vy) * 0.3 }
-        if (newY > max) { newY = max; vy = -Math.abs(vy) * 0.3 }
-
-        return { ...p, x: newX, y: newY, vx, vy, targetX, targetY, moveTimer: newTimer }
+        return {
+          ...p,
+          x: p.x + vx * delta,
+          y: p.y + vy * delta,
+          vx, vy,
+          targetX, targetY,
+          moveTimer: newTimer,
+        }
       }))
 
       animRef.current = requestAnimationFrame(animate)
@@ -207,43 +254,26 @@ export function Tank() {
 
     animRef.current = requestAnimationFrame(animate)
     return () => cancelAnimationFrame(animRef.current)
-  }, [])
+  }, [layers])
 
   useEffect(() => {
-    if (isDead) {
-      setPositions(prev => prev.map(p => {
-        if (!p.dead) {
-          setLayers(layers => {
-            const updated = layers.map(layer => {
-              if (layer.creatures.includes(p.instanceId)) {
-                return { ...layer, creatures: layer.creatures.filter(id => id !== p.instanceId) }
-              }
-              if (layer.id === 'sand') {
-                return { ...layer, creatures: [...layer.creatures, p.instanceId] }
-              }
-              return layer
-            })
-            return updated
-          })
-          return { ...p, dead: true, layerIndex: 4, vx: 0, vy: 0, x: p.x, y: 0.83 }
-        }
-        return p
-      }))
-    }
+    if (!isDead) return
+    
+    setPositions(prev => prev.map(p => {
+      if (p.dead || p.category === 'plant' || p.category === 'sand' || p.category === 'water') return p
+      return { ...p, dead: true }
+    }))
   }, [isDead])
 
-  const swimmingCreatures = positions.filter(p => p.category !== 'plant' && !p.dead)
+  const swimmingCreatures = positions.filter(p => p.category !== 'plant' && p.category !== 'sand' && p.category !== 'water' && !p.dead)
   const plantCreatures = positions.filter(p => p.category === 'plant' && !p.dead)
   const deadCreatures = positions.filter(p => p.dead)
 
   return (
     <div className="w-full">
       <div className="aquarium-frame rounded-2xl p-4 shadow-2xl border border-white/10 relative overflow-hidden">
-        <div className="absolute inset-0 bg-gradient-to-br from-sky-900/80 via-blue-900/70 to-cyan-900/60 rounded-2xl" />
+        <div className="absolute inset-0 bg-gradient-to-br from-slate-800/50 via-slate-700/30 to-slate-600/20 rounded-2xl" />
         <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-cyan-400/30 to-transparent" />
-        <div className="absolute inset-0" style={{
-          background: 'radial-gradient(ellipse 80% 40% at 50% 0%, rgba(56,189,248,0.08) 0%, transparent 70%)',
-        }} />
 
           <div className="relative z-10">
             <div className="flex justify-between items-start mb-3">
@@ -264,93 +294,136 @@ export function Tank() {
             className="aquarium-container relative rounded-xl overflow-hidden"
             style={{ height: 'calc(90vh - 140px)' }}
           >
-            <div className="absolute inset-0 bg-gradient-to-b from-cyan-900/60 via-blue-900/50 to-sky-900/80" />
-            <div className="absolute inset-0"
-              style={{
-                backgroundImage: `
-                  radial-gradient(ellipse 300px 150px at 15% 25%, rgba(100,200,255,0.08) 0%, transparent 60%),
-                  radial-gradient(ellipse 200px 120px at 75% 40%, rgba(80,180,255,0.06) 0%, transparent 60%),
-                  radial-gradient(ellipse 250px 100px at 50% 10%, rgba(150,220,255,0.05) 0%, transparent 60%),
-                  radial-gradient(ellipse 180px 80px at 40% 60%, rgba(60,150,200,0.05) 0%, transparent 60%)
-                `,
-              }}
-            />
-            <div className="absolute top-0 left-0 right-0 h-10 bg-gradient-to-b from-sky-300/20 to-transparent pointer-events-none z-20" />
-            <div className="absolute inset-0 bubble-bg z-[1]" key={bubbleKey}>
-              <div className="bubble-1" />
-              <div className="bubble-2" />
-              <div className="bubble-3" />
-              <div className="bubble-4" />
-            </div>
-
-            <div
-              className="absolute inset-0 z-10"
-              onDragOver={e => { e.preventDefault(); e.dataTransfer.dropEffect = 'copy' }}
-              onDrop={e => {
-                e.preventDefault()
-                const data = e.dataTransfer.getData('application/json')
-                if (data) {
-                  try {
-                    const creature = JSON.parse(data) as Creature
-                    handleDrop(creature)
-                  } catch {}
-                }
-              }}
-            >
-              {swimmingCreatures.map(pos => (
-                <MovingCreature
-                  key={pos.instanceId}
-                  instanceId={pos.instanceId}
-                  category={pos.category}
-                  x={pos.x}
-                  y={pos.y}
-                  facingLeft={pos.vx < -0.0003}
-                  dead={pos.dead}
-                  onRemove={handleRemoveCreature}
-                />
-              ))}
-            </div>
-
-            <div className="absolute left-0 right-0 bottom-0 h-[15%] sand-layer rounded-b-xl z-[5] overflow-hidden">
-              <div className="absolute left-0 right-0 top-0 bottom-0">
-                {deadCreatures.map(pos => (
-                  <div
-                    key={pos.instanceId}
-                    className="absolute bottom-2 cursor-pointer"
-                    style={{
-                      left: `${pos.x * 100}%`,
-                      transform: 'translateX(-50%)',
-                    }}
-                    onClick={() => handleRemoveCreature(pos.instanceId)}
-                    title="点击移除"
-                  >
-                    <DeadBone category={pos.category} instanceId={pos.instanceId} />
-                  </div>
-                ))}
+            {!hasSand && (
+              <div className="absolute inset-0 flex flex-col items-center justify-center z-[20]">
+                <div className="text-center">
+                  <div className="text-6xl mb-4">🏖️</div>
+                  <p className="text-cyan-300/80 text-lg font-medium">拖拽沙子到底部</p>
+                </div>
               </div>
-            </div>
+            )}
 
-            <div className="absolute left-0 right-0 bottom-[15%] h-6 bg-gradient-to-b from-transparent via-amber-900/40 to-transparent z-[7]" />
+            {hasSand && !hasWater && (
+              <div className="absolute left-0 right-0 bottom-0 h-[15%] sand-layer rounded-b-xl z-[5] overflow-hidden">
+                <div className="absolute left-0 right-0 top-0 bottom-0">
+                  {deadCreatures.map(pos => (
+                    <div
+                      key={pos.instanceId}
+                      className="absolute bottom-2 cursor-pointer"
+                      style={{
+                        left: `${pos.x * 100}%`,
+                        transform: 'translateX(-50%)',
+                      }}
+                      onClick={() => handleRemoveCreature(pos.instanceId)}
+                      title="点击移除"
+                    >
+                      <DeadBone category={pos.category} instanceId={pos.instanceId} />
+                    </div>
+                  ))}
+                </div>
+              </div>
+            )}
 
-            <div className="absolute left-0 right-0 bottom-[14%] z-[8]">
-              {plantCreatures.map(pos => (
-                <FixedCreature
-                  key={pos.instanceId}
-                  instanceId={pos.instanceId}
-                  x={pos.x}
-                  dead={pos.dead}
-                  onRemove={handleRemoveCreature}
+            {hasSand && !hasWater && (
+              <div className="absolute inset-0 flex flex-col items-center justify-center z-[15]">
+                <div className="text-center bg-slate-900/60 backdrop-blur-sm rounded-xl px-6 py-4">
+                  <div className="text-5xl mb-3">💧</div>
+                  <p className="text-cyan-300/90 text-base font-medium">拖拽清水（占80%）</p>
+                </div>
+              </div>
+            )}
+
+            {hasSand && hasWater && (
+              <>
+                <div className="absolute inset-0 bg-gradient-to-b from-cyan-900/60 via-blue-900/50 to-sky-900/80" />
+                <div className="absolute inset-0"
+                  style={{
+                    backgroundImage: `
+                      radial-gradient(ellipse 300px 150px at 15% 25%, rgba(100,200,255,0.08) 0%, transparent 60%),
+                      radial-gradient(ellipse 200px 120px at 75% 40%, rgba(80,180,255,0.06) 0%, transparent 60%),
+                      radial-gradient(ellipse 250px 100px at 50% 10%, rgba(150,220,255,0.05) 0%, transparent 60%),
+                      radial-gradient(ellipse 180px 80px at 40% 60%, rgba(60,150,200,0.05) 0%, transparent 60%)
+                    `,
+                  }}
                 />
-              ))}
-            </div>
+                <div className="absolute top-0 left-0 right-0 h-10 bg-gradient-to-b from-sky-300/20 to-transparent pointer-events-none z-20" />
+                <div className="absolute inset-0 bubble-bg z-[1]" key={bubbleKey}>
+                  <div className="bubble-1" />
+                  <div className="bubble-2" />
+                  <div className="bubble-3" />
+                  <div className="bubble-4" />
+                </div>
 
-            <div className="absolute inset-0 z-[15] pointer-events-none"
-              style={{
-                background: 'linear-gradient(to bottom, rgba(255,255,255,0.03) 0%, transparent 15%, transparent 85%, rgba(0,0,0,0.15) 100%)',
-                borderRadius: '0.625rem',
-              }}
-            />
-            <div className="absolute top-0 left-0 w-8 h-full bg-gradient-to-r from-white/5 to-transparent pointer-events-none z-[16]" />
+                <div
+                  className="absolute inset-0 z-10"
+                  onDragOver={e => { e.preventDefault(); e.dataTransfer.dropEffect = 'copy' }}
+                  onDrop={e => {
+                    e.preventDefault()
+                    const data = e.dataTransfer.getData('application/json')
+                    if (data) {
+                      try {
+                        const creature = JSON.parse(data) as Creature
+                        handleDrop(creature)
+                      } catch {}
+                    }
+                  }}
+                >
+                  {swimmingCreatures.map(pos => (
+                    <MovingCreature
+                      key={pos.instanceId}
+                      instanceId={pos.instanceId}
+                      category={pos.category}
+                      x={pos.x}
+                      y={pos.y}
+                      facingLeft={pos.vx < -0.0003}
+                      dead={pos.dead}
+                      onRemove={handleRemoveCreature}
+                    />
+                  ))}
+                </div>
+
+                <div className="absolute left-0 right-0 bottom-0 h-[15%] sand-layer rounded-b-xl z-[5] overflow-hidden">
+                  <div className="absolute left-0 right-0 top-0 bottom-0">
+                    {deadCreatures.map(pos => (
+                      <div
+                        key={pos.instanceId}
+                        className="absolute bottom-2 cursor-pointer"
+                        style={{
+                          left: `${pos.x * 100}%`,
+                          transform: 'translateX(-50%)',
+                        }}
+                        onClick={() => handleRemoveCreature(pos.instanceId)}
+                        title="点击移除"
+                      >
+                        <DeadBone category={pos.category} instanceId={pos.instanceId} />
+                      </div>
+                    ))}
+                  </div>
+                </div>
+
+                <div className="absolute left-0 right-0 bottom-[15%] h-6 bg-gradient-to-b from-transparent via-amber-900/40 to-transparent z-[7]" />
+
+                <div className="absolute left-0 right-0 bottom-[14%] z-[8]">
+                  {plantCreatures.map(pos => (
+                    <FixedCreature
+                      key={pos.instanceId}
+                      instanceId={pos.instanceId}
+                      x={pos.x}
+                      dead={pos.dead}
+                      onRemove={handleRemoveCreature}
+                    />
+                  ))}
+                </div>
+
+                <div className="absolute inset-0 z-[15] pointer-events-none"
+                  style={{
+                    background: 'linear-gradient(to bottom, rgba(255,255,255,0.03) 0%, transparent 15%, transparent 85%, rgba(0,0,0,0.15) 100%)',
+                    borderRadius: '0.625rem',
+                  }}
+                />
+                <div className="absolute top-0 left-0 w-8 h-full bg-gradient-to-r from-white/5 to-transparent pointer-events-none z-[16]" />
+              </>
+            )}
           </div>
         </div>
       </div>

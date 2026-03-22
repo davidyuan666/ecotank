@@ -1,6 +1,10 @@
 import { Creature } from '@/types'
 
 export const creatures: Creature[] = [
+  // 基础设置
+  { id: 'sand', name: '沙子', category: 'sand', oxygenChange: 0, emoji: '🏖️', description: '铺设鱼缸底部' },
+  { id: 'water', name: '清水', category: 'water', oxygenChange: 0, emoji: '💧', description: '倒入清水（占80%）' },
+  
   // 鱼类
   { id: 'goldfish', name: '金鱼', category: 'fish', oxygenChange: -3, emoji: '🐠', description: '美丽的金鱼' },
   { id: 'koi', name: '锦鲤', category: 'fish', oxygenChange: -4, emoji: '🐟', description: '色彩斑斓的锦鲤' },
@@ -20,6 +24,8 @@ export const creatures: Creature[] = [
 ]
 
 export const creaturesByCategory = {
+  sand: creatures.filter(c => c.category === 'sand'),
+  water: creatures.filter(c => c.category === 'water'),
   fish: creatures.filter(c => c.category === 'fish'),
   shrimp: creatures.filter(c => c.category === 'shrimp'),
   snail: creatures.filter(c => c.category === 'snail'),
@@ -27,6 +33,8 @@ export const creaturesByCategory = {
 }
 
 export const categoryNames: Record<string, string> = {
+  sand: '🏖️ 沙子',
+  water: '💧 清水',
   fish: '🐟 鱼类',
   shrimp: '🦐 虾类',
   snail: '🐌 螺类',
