@@ -87,7 +87,8 @@ export function Tank() {
 
   const handleDrop = (creature: Creature) => {
     const instanceId = `${creature.id}-${Date.now()}-${Math.random()}`
-    const layerIndex = findAvailableLayer(layersRef.current)
+    const isPlant = creature.category === 'plant'
+    const layerIndex = isPlant ? 4 : findAvailableLayer(layersRef.current)
 
     setLayers(prev => {
       const updated = prev.map((l, i) => {
@@ -101,7 +102,7 @@ export function Tank() {
 
     let x: number, y: number
 
-    if (creature.category === 'plant') {
+    if (isPlant) {
       x = 0.1 + Math.random() * 0.75
       y = 0.86 + Math.random() * 0.08
     } else {
@@ -268,7 +269,6 @@ export function Tank() {
               <MovingCreature
                 key={pos.instanceId}
                 instanceId={pos.instanceId}
-                emoji={pos.emoji}
                 category={pos.category}
                 x={pos.x}
                 y={pos.y}
@@ -285,7 +285,6 @@ export function Tank() {
               <FixedCreature
                 key={pos.instanceId}
                 instanceId={pos.instanceId}
-                emoji={pos.emoji}
                 x={pos.x}
                 dead={pos.dead}
                 onRemove={handleRemoveCreature}

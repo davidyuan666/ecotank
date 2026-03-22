@@ -1,6 +1,12 @@
 'use client'
 
 import { Creature, PlacedCreature, CreatureCategory } from '@/types'
+import {
+  GoldfishSVG, KoiSVG, TetraSVG,
+  ShrimpSVG, CrystalShrimpSVG,
+  AppleSnailSVG, ZebraSnailSVG,
+  AnacharisSVG, AnubiasSVG
+} from './CreatureSVGs'
 
 interface CreatureCardProps {
   creature: Creature
@@ -35,9 +41,37 @@ export function CreatureCard({ creature, onDragStart }: CreatureCardProps) {
   )
 }
 
+function getCreatureSVG(category: CreatureCategory, creatureId: string, dead: boolean) {
+  if (dead) {
+    return (
+      <svg viewBox="0 0 64 40" xmlns="http://www.w3.org/2000/svg">
+        <ellipse cx="28" cy="20" rx="18" ry="13" fill="#555" />
+        <circle cx="14" cy="17" r="3.5" fill="#888" />
+      </svg>
+    )
+  }
+
+  switch (category) {
+    case 'fish':
+      if (creatureId.includes('koi')) return <KoiSVG />
+      if (creatureId.includes('tetra')) return <TetraSVG />
+      return <GoldfishSVG />
+    case 'shrimp':
+      if (creatureId.includes('crystal')) return <CrystalShrimpSVG />
+      return <ShrimpSVG />
+    case 'snail':
+      if (creatureId.includes('zebra')) return <ZebraSnailSVG />
+      return <AppleSnailSVG />
+    case 'plant':
+      if (creatureId.includes('anubias')) return <AnubiasSVG />
+      return <AnacharisSVG />
+    default:
+      return <GoldfishSVG />
+  }
+}
+
 interface MovingCreatureProps {
   instanceId: string
-  emoji: string
   category: CreatureCategory
   x: number
   y: number
@@ -47,62 +81,54 @@ interface MovingCreatureProps {
 }
 
 export function MovingCreature({
-  instanceId, emoji, category, x, y, facingLeft, dead, onRemove
+  instanceId, category, x, y, facingLeft, dead, onRemove
 }: MovingCreatureProps) {
-  const getCreatureClass = () => {
-    switch (category) {
-      case 'fish': return 'creature-fish'
-      case 'shrimp': return 'creature-shrimp'
-      case 'snail': return 'creature-snail'
-      default: return ''
-    }
-  }
+  const animClass = dead ? '' : 'swim-animation'
 
   return (
     <div
-      className={`absolute select-none cursor-pointer ${dead ? 'dead-creature' : ''} ${getCreatureClass()}`}
+      className={`absolute select-none cursor-pointer ${animClass} ${dead ? 'dead-creature' : ''}`}
       style={{
         left: `${x * 100}%`,
         bottom: `${y * 100}%`,
-        transform: `translateX(-50%) translateY(50%)`,
+        transform: `translateX(-50%) translateY(50%) ${facingLeft ? 'scaleX(-1)' : ''}`,
+        width: category === 'snail' ? '40px' : '64px',
+        height: category === 'snail' ? '44px' : '40px',
         zIndex: dead ? 5 : 10,
       }}
       onClick={() => onRemove(instanceId)}
       title="点击移除"
     >
-      <div className={`relative ${facingLeft ? 'scale-x-[-1]' : ''} ${!dead ? 'creature-idle' : ''}`}>
-        <span className={`text-3xl ${dead ? 'grayscale opacity-60' : ''}`}>
-          {emoji}
-        </span>
-      </div>
+      {getCreatureSVG(category, instanceId, dead)}
     </div>
   )
 }
 
 interface FixedCreatureProps {
   instanceId: string
-  emoji: string
   x: number
   dead: boolean
   onRemove: (instanceId: string) => void
 }
 
-export function FixedCreature({ instanceId, emoji, x, dead, onRemove }: FixedCreatureProps) {
+export function FixedCreature({ instanceId, x, dead, onRemove }: FixedCreatureProps) {
+  const isAnubias = instanceId.includes('anubias')
+
   return (
     <div
-      className={`absolute select-none cursor-pointer ${dead ? 'dead-creature' : ''}`}
+      className={`absolute select-none cursor-pointer ${dead ? 'dead-creature' : 'plant-sway'}`}
       style={{
         left: `${x * 100}%`,
-        bottom: '8px',
+        bottom: '6px',
         transform: 'translateX(-50%)',
+        width: isAnubias ? '56px' : '38px',
+        height: isAnubias ? '66px' : '76px',
         zIndex: dead ? 5 : 8,
       }}
       onClick={() => onRemove(instanceId)}
       title="点击移除"
     >
-      <div className={`plant-container ${!dead ? 'plant-sway' : 'grayscale opacity-60'}`}>
-        <span className="text-5xl leading-none">{emoji}</span>
-      </div>
+      {isAnubias ? <AnubiasSVG /> : <AnacharisSVG />}
     </div>
   )
 }
