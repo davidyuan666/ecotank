@@ -121,8 +121,8 @@ export function FixedCreature({ instanceId, x, dead, onRemove }: FixedCreaturePr
         left: `${x * 100}%`,
         bottom: '0px',
         transform: 'translateX(-50%)',
-        width: isAnubias ? '120px' : '80px',
-        height: isAnubias ? '140px' : '180px',
+        width: isAnubias ? '180px' : '120px',
+        height: isAnubias ? '210px' : '270px',
         zIndex: dead ? 5 : 8,
       }}
       onClick={() => onRemove(instanceId)}

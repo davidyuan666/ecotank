@@ -4,6 +4,7 @@ import { useState, useEffect, useRef, useCallback } from 'react'
 import { Creature, CreaturePosition } from '@/types'
 import { MovingCreature, FixedCreature, DeadBone } from './CreatureCard'
 import { OxygenMeter } from './OxygenMeter'
+import { ComfortMeter } from './ComfortMeter'
 
 interface LayerInfo {
   id: string
@@ -89,6 +90,12 @@ export function Tank() {
   const handleDrop = (creature: Creature) => {
     const instanceId = `${creature.id}-${Date.now()}-${Math.random()}`
     const isPlant = creature.category === 'plant'
+    
+    if (isPlant) {
+      const currentPlantCount = positions.filter(p => p.category === 'plant' && !p.dead).length
+      if (currentPlantCount >= 5) return
+    }
+    
     const layerIndex = isPlant ? 4 : findAvailableLayer(layersRef.current)
 
     setLayers(prev => {
@@ -238,8 +245,9 @@ export function Tank() {
           background: 'radial-gradient(ellipse 80% 40% at 50% 0%, rgba(56,189,248,0.08) 0%, transparent 70%)',
         }} />
 
-        <div className="relative z-10">
+          <div className="relative z-10">
           <div className="flex justify-end items-center gap-3 mb-3">
+            <ComfortMeter creatureCount={swimmingCreatures.length} />
             <OxygenMeter level={displayOxygen} />
             <button
               onClick={handleReset}
