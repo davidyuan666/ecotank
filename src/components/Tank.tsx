@@ -293,6 +293,17 @@ export function Tank() {
             ref={tankRef}
             className="aquarium-container relative rounded-xl overflow-hidden"
             style={{ height: 'calc(90vh - 140px)' }}
+            onDragOver={e => { e.preventDefault(); e.dataTransfer.dropEffect = 'copy' }}
+            onDrop={e => {
+              e.preventDefault()
+              const data = e.dataTransfer.getData('application/json')
+              if (data) {
+                try {
+                  const creature = JSON.parse(data) as Creature
+                  handleDrop(creature)
+                } catch {}
+              }
+            }}
           >
             {!hasSand && (
               <div className="absolute inset-0 flex flex-col items-center justify-center z-[20]">
@@ -354,20 +365,7 @@ export function Tank() {
                   <div className="bubble-4" />
                 </div>
 
-                <div
-                  className="absolute inset-0 z-10"
-                  onDragOver={e => { e.preventDefault(); e.dataTransfer.dropEffect = 'copy' }}
-                  onDrop={e => {
-                    e.preventDefault()
-                    const data = e.dataTransfer.getData('application/json')
-                    if (data) {
-                      try {
-                        const creature = JSON.parse(data) as Creature
-                        handleDrop(creature)
-                      } catch {}
-                    }
-                  }}
-                >
+                <div className="absolute inset-0 z-10">
                   {swimmingCreatures.map(pos => (
                     <MovingCreature
                       key={pos.instanceId}
