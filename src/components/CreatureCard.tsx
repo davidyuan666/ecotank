@@ -92,7 +92,7 @@ export function MovingCreature({
         left: `${x * 100}%`,
         bottom: `${y * 100}%`,
         transform: `translateX(-50%) translateY(50%) ${facingLeft ? 'scaleX(-1)' : ''}`,
-        width: category === 'snail' ? '44px' : category === 'shrimp' ? '68px' : '64px',
+        width: category === 'snail' ? '44px' : category === 'shrimp' ? '64px' : '64px',
         height: category === 'snail' ? '44px' : category === 'shrimp' ? '36px' : '40px',
         zIndex: dead ? 5 : 10,
       }}

@@ -7,8 +7,8 @@ interface OxygenMeterProps {
 
 export function OxygenMeter({ level, maxLevel = 100 }: OxygenMeterProps) {
   const percentage = Math.min(100, Math.max(0, (level / maxLevel) * 100))
-  const isLow = percentage < 30
-  const isMedium = percentage >= 30 && percentage < 60
+  const isLow = level < 5
+  const isMedium = level >= 5 && level < 20
 
   const getColor = () => {
     if (isLow) return 'bg-red-500'
