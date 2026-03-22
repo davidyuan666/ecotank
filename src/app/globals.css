@@ -34,8 +34,7 @@ body {
 
 @layer components {
   .aquarium-frame {
-    background: linear-gradient(135deg, #1e3a5f 0%, #0c2340 50%, #1a3355 100%);
-    border-color: #0ea5e9;
+    position: relative;
   }
 
   .sand-layer {
@@ -200,13 +199,13 @@ body {
 
 @keyframes swim-animation {
   0%, 100% {
-    transform: translateY(0px) scaleX(var(--facing, 1));
+    transform: translateY(0px);
   }
   25% {
-    transform: translateY(-1.5px) scaleX(var(--facing, 1));
+    transform: translateY(-1.5px);
   }
   75% {
-    transform: translateY(1px) scaleX(var(--facing, 1));
+    transform: translateY(1px);
   }
 }
 
@@ -214,19 +213,26 @@ body {
   animation: swim-animation 2.5s ease-in-out infinite;
 }
 
-@keyframes tail-wag {
-  0%, 100% {
-    transform: rotate(0deg);
-  }
-  25% {
-    transform: rotate(10deg);
-  }
-  75% {
-    transform: rotate(-10deg);
-  }
-}
-
 .dead-creature {
   filter: grayscale(100%) brightness(0.35);
   opacity: 0.55;
+}
+
+@keyframes wave-path-1 {
+  0%, 100% { d: path("M2 20 Q8 12 14 20 Q20 28 26 20 Q30 16 34 18"); }
+  50% { d: path("M2 18 Q8 26 14 18 Q20 10 26 18 Q30 22 34 20"); }
+}
+
+@keyframes wave-path-2 {
+  0%, 100% { d: path("M2 26 Q8 18 14 26 Q20 34 26 26 Q30 22 34 24"); }
+  50% { d: path("M2 24 Q8 32 14 24 Q20 16 26 24 Q30 28 34 26"); }
+}
+
+.wave-path-1 {
+  animation: wave-path-1 3s ease-in-out infinite;
+}
+
+.wave-path-2 {
+  animation: wave-path-2 3.5s ease-in-out infinite;
+  animation-delay: 0.5s;
 }

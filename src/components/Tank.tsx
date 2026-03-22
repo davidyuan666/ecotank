@@ -230,110 +230,119 @@ export function Tank() {
 
   return (
     <div className="w-full">
-      <div className="aquarium-frame rounded-2xl p-4 shadow-2xl border-4 border-sky-700">
-        <div className="flex justify-between items-start mb-4">
-          <h2 className="text-xl font-bold text-cyan-100">🏠 水缸</h2>
-          <div className="flex items-center gap-3">
+      <div className="aquarium-frame rounded-2xl p-4 shadow-2xl border border-white/10 relative overflow-hidden">
+        <div className="absolute inset-0 bg-gradient-to-br from-sky-900/80 via-blue-900/70 to-cyan-900/60 rounded-2xl" />
+        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-cyan-400/30 to-transparent" />
+        <div className="absolute inset-0" style={{
+          background: 'radial-gradient(ellipse 80% 40% at 50% 0%, rgba(56,189,248,0.08) 0%, transparent 70%)',
+        }} />
+
+        <div className="relative z-10">
+          <div className="flex justify-end items-center gap-3 mb-3">
             <OxygenMeter level={oxygenLevel} />
             <button
               onClick={handleReset}
-              className="bg-gray-500 hover:bg-gray-600 text-white 
-                       rounded-lg py-2 px-3 font-medium transition-colors shadow"
+              className="bg-white/10 hover:bg-white/20 text-cyan-100 
+                       rounded-lg py-2 px-3 font-medium transition-all backdrop-blur-sm
+                       border border-white/10 shadow"
             >
-              🔄 重置
+              ✨ 重置
             </button>
-          </div>
-        </div>
-
-        <div
-          ref={tankRef}
-          className="aquarium-container relative rounded-xl overflow-hidden"
-          style={{ height: '520px' }}
-        >
-          <div className="absolute inset-0 bg-gradient-to-b from-cyan-400/15 via-cyan-600/25 to-blue-800/55" />
-          <div className="absolute inset-0 opacity-30"
-            style={{
-              backgroundImage: `radial-gradient(ellipse 200px 100px at 20% 30%, rgba(150,220,255,0.3) 0%, transparent 70%),
-                radial-gradient(ellipse 150px 80px at 70% 50%, rgba(150,220,255,0.2) 0%, transparent 70%),
-                radial-gradient(ellipse 180px 90px at 50% 20%, rgba(200,240,255,0.25) 0%, transparent 70%)`,
-            }}
-          />
-          <div className="absolute top-0 left-0 right-0 h-8 bg-gradient-to-b from-sky-300/40 to-transparent pointer-events-none z-20" />
-          <div className="absolute inset-0 bubble-bg z-[1]" key={bubbleKey}>
-            <div className="bubble-1" />
-            <div className="bubble-2" />
-            <div className="bubble-3" />
-            <div className="bubble-4" />
           </div>
 
           <div
-            className="absolute inset-0 z-10"
-            onDragOver={e => { e.preventDefault(); e.dataTransfer.dropEffect = 'copy' }}
-            onDrop={e => {
-              e.preventDefault()
-              const data = e.dataTransfer.getData('application/json')
-              if (data) {
-                try {
-                  const creature = JSON.parse(data) as Creature
-                  handleDrop(creature)
-                } catch {}
-              }
-            }}
+            ref={tankRef}
+            className="aquarium-container relative rounded-xl overflow-hidden"
+            style={{ height: '520px' }}
           >
-            {swimmingCreatures.map(pos => (
-              <MovingCreature
-                key={pos.instanceId}
-                instanceId={pos.instanceId}
-                category={pos.category}
-                x={pos.x}
-                y={pos.y}
-                facingLeft={pos.vx < -0.0003}
-                dead={pos.dead}
-                onRemove={handleRemoveCreature}
-              />
-            ))}
-          </div>
+            <div className="absolute inset-0 bg-gradient-to-b from-cyan-900/60 via-blue-900/50 to-sky-900/80" />
+            <div className="absolute inset-0"
+              style={{
+                backgroundImage: `
+                  radial-gradient(ellipse 300px 150px at 15% 25%, rgba(100,200,255,0.08) 0%, transparent 60%),
+                  radial-gradient(ellipse 200px 120px at 75% 40%, rgba(80,180,255,0.06) 0%, transparent 60%),
+                  radial-gradient(ellipse 250px 100px at 50% 10%, rgba(150,220,255,0.05) 0%, transparent 60%),
+                  radial-gradient(ellipse 180px 80px at 40% 60%, rgba(60,150,200,0.05) 0%, transparent 60%)
+                `,
+              }}
+            />
+            <div className="absolute top-0 left-0 right-0 h-10 bg-gradient-to-b from-sky-300/20 to-transparent pointer-events-none z-20" />
+            <div className="absolute inset-0 bubble-bg z-[1]" key={bubbleKey}>
+              <div className="bubble-1" />
+              <div className="bubble-2" />
+              <div className="bubble-3" />
+              <div className="bubble-4" />
+            </div>
 
-          <div className="absolute left-0 right-0 bottom-0 h-[15%] sand-layer rounded-b-xl z-[5] overflow-hidden">
-            <div className="absolute left-0 right-0 top-0 bottom-0">
-              {deadCreatures.map(pos => (
-                <div
+            <div
+              className="absolute inset-0 z-10"
+              onDragOver={e => { e.preventDefault(); e.dataTransfer.dropEffect = 'copy' }}
+              onDrop={e => {
+                e.preventDefault()
+                const data = e.dataTransfer.getData('application/json')
+                if (data) {
+                  try {
+                    const creature = JSON.parse(data) as Creature
+                    handleDrop(creature)
+                  } catch {}
+                }
+              }}
+            >
+              {swimmingCreatures.map(pos => (
+                <MovingCreature
                   key={pos.instanceId}
-                  className="absolute bottom-2 cursor-pointer"
-                  style={{
-                    left: `${pos.x * 100}%`,
-                    transform: 'translateX(-50%)',
-                  }}
-                  onClick={() => handleRemoveCreature(pos.instanceId)}
-                  title="点击移除"
-                >
-                  <DeadBone category={pos.category} instanceId={pos.instanceId} />
-                </div>
+                  instanceId={pos.instanceId}
+                  category={pos.category}
+                  x={pos.x}
+                  y={pos.y}
+                  facingLeft={pos.vx < -0.0003}
+                  dead={pos.dead}
+                  onRemove={handleRemoveCreature}
+                />
               ))}
             </div>
-          </div>
 
-          <div className="absolute left-0 right-0 bottom-[15%] h-6 bg-gradient-to-b from-transparent via-amber-900/40 to-transparent z-[7]" />
-
-          <div className="absolute left-0 right-0 bottom-[14%] z-[8]">
-            {plantCreatures.map(pos => (
-              <FixedCreature
-                key={pos.instanceId}
-                instanceId={pos.instanceId}
-                x={pos.x}
-                dead={pos.dead}
-                onRemove={handleRemoveCreature}
-              />
-            ))}
-          </div>
-        </div>
-
-        <div className="mt-3 flex gap-2 flex-wrap">
-          {layers.map((layer, i) => (
-            <div key={layer.id} className="text-xs text-cyan-200/70 px-2 py-1 bg-cyan-900/30 rounded">
-              {layer.name}: {layer.creatures.length}{i < 4 ? '/4' : ''}
+            <div className="absolute left-0 right-0 bottom-0 h-[15%] sand-layer rounded-b-xl z-[5] overflow-hidden">
+              <div className="absolute left-0 right-0 top-0 bottom-0">
+                {deadCreatures.map(pos => (
+                  <div
+                    key={pos.instanceId}
+                    className="absolute bottom-2 cursor-pointer"
+                    style={{
+                      left: `${pos.x * 100}%`,
+                      transform: 'translateX(-50%)',
+                    }}
+                    onClick={() => handleRemoveCreature(pos.instanceId)}
+                    title="点击移除"
+                  >
+                    <DeadBone category={pos.category} instanceId={pos.instanceId} />
+                  </div>
+                ))}
+              </div>
             </div>
-          ))}
+
+            <div className="absolute left-0 right-0 bottom-[15%] h-6 bg-gradient-to-b from-transparent via-amber-900/40 to-transparent z-[7]" />
+
+            <div className="absolute left-0 right-0 bottom-[14%] z-[8]">
+              {plantCreatures.map(pos => (
+                <FixedCreature
+                  key={pos.instanceId}
+                  instanceId={pos.instanceId}
+                  x={pos.x}
+                  dead={pos.dead}
+                  onRemove={handleRemoveCreature}
+                />
+              ))}
+            </div>
+
+            <div className="absolute inset-0 z-[15] pointer-events-none"
+              style={{
+                background: 'linear-gradient(to bottom, rgba(255,255,255,0.03) 0%, transparent 15%, transparent 85%, rgba(0,0,0,0.15) 100%)',
+                borderRadius: '0.625rem',
+              }}
+            />
+            <div className="absolute top-0 left-0 w-8 h-full bg-gradient-to-r from-white/5 to-transparent pointer-events-none z-[16]" />
+          </div>
         </div>
       </div>
     </div>
