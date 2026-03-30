@@ -5,7 +5,7 @@ import {
   GoldfishSVG, KoiSVG, TetraSVG,
   ShrimpSVG, CrystalShrimpSVG,
   AppleSnailSVG, ZebraSnailSVG,
-  AnacharisSVG, AnubiasSVG
+  AnacharisSVG, AnubiasSVG, DuckweedSVG
 } from './CreatureSVGs'
 
 interface CreatureCardProps {
@@ -63,6 +63,7 @@ function getCreatureSVG(category: CreatureCategory, creatureId: string, dead: bo
       if (creatureId.includes('zebra')) return <ZebraSnailSVG />
       return <AppleSnailSVG />
     case 'plant':
+      if (creatureId.includes('duckweed')) return <DuckweedSVG />
       if (creatureId.includes('anubias')) return <AnubiasSVG />
       return <AnacharisSVG />
     default:
@@ -113,23 +114,25 @@ interface FixedCreatureProps {
 
 export function FixedCreature({ instanceId, x, dead, onRemove }: FixedCreatureProps) {
   const isAnubias = instanceId.includes('anubias')
+  const isDuckweed = instanceId.includes('duckweed')
 
   return (
     <div
-      className={`absolute select-none cursor-pointer ${dead ? 'dead-creature' : 'plant-sway'}`}
+      className={`absolute select-none cursor-pointer ${dead ? 'dead-creature' : isDuckweed ? 'duckweed-float' : 'plant-sway'}`}
       style={{
         left: `${x * 100}%`,
-        bottom: '0px',
+        bottom: isDuckweed ? 'auto' : '0px',
+        top: isDuckweed ? '0px' : 'auto',
         transform: 'translateX(-50%)',
-        width: isAnubias ? '120px' : '80px',
-        height: isAnubias ? '140px' : '180px',
+        width: isDuckweed ? '60px' : isAnubias ? '120px' : '80px',
+        height: isDuckweed ? '30px' : isAnubias ? '140px' : '180px',
         zIndex: dead ? 5 : 8,
       }}
       onClick={() => onRemove(instanceId)}
       title="点击移除"
     >
-      <div className="w-full h-full opacity-80 overflow-visible">
-        {isAnubias ? <AnubiasSVG /> : <AnacharisSVG />}
+      <div className="w-full h-full opacity-90 overflow-visible">
+        {isDuckweed ? <DuckweedSVG /> : isAnubias ? <AnubiasSVG /> : <AnacharisSVG />}
       </div>
     </div>
   )

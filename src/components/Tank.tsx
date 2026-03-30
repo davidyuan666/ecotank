@@ -133,13 +133,14 @@ export function Tank() {
     if (!hasSand || !hasWater) return
 
     const isPlant = creature.category === 'plant'
+    const isDuckweed = creature.id === 'duckweed'
     
-    if (isPlant) {
-      const currentPlantCount = positions.filter(p => p.category === 'plant' && !p.dead).length
+    if (isPlant && !isDuckweed) {
+      const currentPlantCount = positions.filter(p => p.category === 'plant' && !p.instanceId.includes('duckweed') && !p.dead).length
       if (currentPlantCount >= 5) return
     }
     
-    const layerIndex = isPlant ? 4 : findAvailableLayer(layersRef.current)
+    const layerIndex = (isPlant && !isDuckweed) ? 4 : findAvailableLayer(layersRef.current)
 
     setLayers(prev => {
       const updated = prev.map((l, i) => {
@@ -153,7 +154,10 @@ export function Tank() {
 
     let x: number, y: number
 
-    if (isPlant) {
+    if (isDuckweed) {
+      x = 0.1 + Math.random() * 0.75
+      y = 0.05 + Math.random() * 0.1
+    } else if (isPlant) {
       x = 0.1 + Math.random() * 0.75
       y = 0.82 + Math.random() * 0.08
     } else {
@@ -266,7 +270,8 @@ export function Tank() {
   }, [isDead])
 
   const swimmingCreatures = positions.filter(p => p.category !== 'plant' && p.category !== 'sand' && p.category !== 'water' && !p.dead)
-  const plantCreatures = positions.filter(p => p.category === 'plant' && !p.dead)
+  const plantCreatures = positions.filter(p => p.category === 'plant' && !p.instanceId.includes('duckweed') && !p.dead)
+  const duckweedCreatures = positions.filter(p => p.category === 'plant' && p.instanceId.includes('duckweed') && !p.dead)
   const deadCreatures = positions.filter(p => p.dead)
 
   return (
@@ -403,6 +408,18 @@ export function Tank() {
 
                 <div className="absolute left-0 right-0 bottom-[14%] z-[8]">
                   {plantCreatures.map(pos => (
+                    <FixedCreature
+                      key={pos.instanceId}
+                      instanceId={pos.instanceId}
+                      x={pos.x}
+                      dead={pos.dead}
+                      onRemove={handleRemoveCreature}
+                    />
+                  ))}
+                </div>
+
+                <div className="absolute left-0 right-0 top-[12%] z-[6]">
+                  {duckweedCreatures.map(pos => (
                     <FixedCreature
                       key={pos.instanceId}
                       instanceId={pos.instanceId}

@@ -197,6 +197,19 @@ body {
   transform-origin: bottom center;
 }
 
+@keyframes duckweed-float {
+  0%, 100% {
+    transform: translateX(-50%) translateY(0px);
+  }
+  50% {
+    transform: translateX(-50%) translateY(-3px);
+  }
+}
+
+.duckweed-float {
+  animation: duckweed-float 3s ease-in-out infinite;
+}
+
 @keyframes swim-animation {
   0%, 100% {
     transform: translateY(0px);

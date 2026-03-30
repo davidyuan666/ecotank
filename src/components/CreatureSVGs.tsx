@@ -273,6 +273,20 @@ export function AnubiasSVG({ className, style }: SVGProps) {
   )
 }
 
+export function DuckweedSVG({ className, style }: SVGProps) {
+  return (
+    <svg viewBox="0 0 80 40" className={className} style={style} xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="20" cy="20" rx="18" ry="12" fill="#7CB342" opacity="0.85" />
+      <ellipse cx="60" cy="22" rx="16" ry="10" fill="#8BC34A" opacity="0.8" />
+      <ellipse cx="40" cy="18" rx="14" ry="9" fill="#9CCC65" opacity="0.75" />
+      <ellipse cx="25" cy="18" rx="8" ry="5" fill="#AED581" opacity="0.5" />
+      <ellipse cx="55" cy="20" rx="7" ry="4" fill="#C5E1A5" opacity="0.5" />
+      <path d="M20 32 Q20 38 22 40" stroke="#558B2F" strokeWidth="1.5" fill="none" opacity="0.6" />
+      <path d="M60 32 Q60 37 62 39" stroke="#558B2F" strokeWidth="1.5" fill="none" opacity="0.6" />
+    </svg>
+  )
+}
+
 export function getCreatureSVG(category: CreatureCategory, className?: string, style?: React.CSSProperties) {
   switch (category) {
     case 'fish':
