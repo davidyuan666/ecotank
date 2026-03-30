@@ -35,16 +35,16 @@ function getLayerYRange(layerIndex: number) {
 
 function getRandomTarget(layerIndex: number, currentX: number) {
   const { min, max } = getLayerYRange(layerIndex)
-  const x = Math.max(0.05, Math.min(0.88, currentX + (Math.random() - 0.5) * 0.35))
+  const x = Math.max(0.05, Math.min(0.88, currentX + (Math.random() - 0.5) * 0.15))
   const y = min + Math.random() * (max - min)
   return { x, y }
 }
 
 function getCreatureSpeed(category: Creature['category']) {
   switch (category) {
-    case 'fish': return 0.0008
-    case 'shrimp': return 0.0005
-    case 'snail': return 0.0003
+    case 'fish': return 0.0003
+    case 'shrimp': return 0.0002
+    case 'snail': return 0.0001
     default: return 0
   }
 }
@@ -86,7 +86,7 @@ export function Tank() {
   const isDead = oxygenLevel <= 0
 
   const handleDrop = (creature: Creature) => {
-    const instanceId = `${creature.id}-${Date.now()}-${Math.random()}`
+    const instanceId = `${creature.id}-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`
 
     if (creature.category === 'sand') {
       if (hasSand) return
@@ -227,7 +227,7 @@ export function Tank() {
         let { targetX, targetY } = p
         let { vx, vy } = p
 
-        if (newTimer > 5000 + Math.random() * 3000) {
+        if (newTimer > 8000 + Math.random() * 4000) {
           const next = getRandomTarget(p.layerIndex, p.x)
           targetX = next.x
           targetY = next.y
@@ -238,9 +238,12 @@ export function Tank() {
         const dy = targetY - p.y
         const dist = Math.sqrt(dx * dx + dy * dy)
 
-        if (dist > 0.01) {
+        if (dist > 0.001) {
           vx = (dx / dist) * speed
           vy = (dy / dist) * speed
+        } else {
+          vx = 0
+          vy = 0
         }
 
         return {
