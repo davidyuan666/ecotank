@@ -26,11 +26,7 @@ export default function Home() {
             </h1>
             <WaveIcon />
           </div>
-          <div className="bg-amber-500/10 border border-amber-500/20 rounded-lg px-4 py-2">
-            <p className="text-amber-600 text-xs">
-              💡 拖拽生物到水缸中，水草会产生氧气，氧气低于5时生物会死亡沉底
-            </p>
-          </div>
+
         </header>
 
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6">
@@ -43,8 +39,7 @@ export default function Home() {
         </div>
 
         <footer className="mt-8 text-center text-gray-400 text-xs">
-          <p>💡 小贴士：水草会产生氧气，鱼虾螺会消耗氧气。氧气低于5时生物会沉底。</p>
-          <p className="mt-1">点击鱼缸中的生物可将其移除。</p>
+          <p>点击鱼缸中的生物可将其移除。</p>
         </footer>
       </div>
     </main>

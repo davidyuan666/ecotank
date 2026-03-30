@@ -201,16 +201,13 @@ body {
   0%, 100% {
     transform: translateY(0px);
   }
-  25% {
-    transform: translateY(-1.5px);
-  }
-  75% {
-    transform: translateY(1px);
+  50% {
+    transform: translateY(-0.5px);
   }
 }
 
 .swim-animation {
-  animation: swim-animation 2.5s ease-in-out infinite;
+  animation: swim-animation 4s ease-in-out infinite;
 }
 
 .dead-creature {
