@@ -5,8 +5,8 @@ interface ComfortMeterProps {
 }
 
 export function ComfortMeter({ creatureCount }: ComfortMeterProps) {
-  const isComfortable = creatureCount <= 5
-  const isCrowded = creatureCount > 8
+  const isComfortable = creatureCount <= 6
+  const isCrowded = creatureCount > 10
 
   const getComfortStatus = () => {
     if (isComfortable) return { text: '舒适', bgGrad: 'from-emerald-500 to-teal-400', tagBg: 'bg-emerald-500/30', tagText: 'text-emerald-300', valueText: 'text-emerald-400' }

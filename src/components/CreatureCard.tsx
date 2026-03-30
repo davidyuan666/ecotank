@@ -84,11 +84,9 @@ interface MovingCreatureProps {
 export function MovingCreature({
   instanceId, category, x, y, facingLeft, dead, onRemove
 }: MovingCreatureProps) {
-  const animClass = dead ? '' : 'swim-animation'
-
   return (
     <div
-      className={`absolute select-none cursor-pointer ${animClass} ${dead ? 'dead-creature' : ''}`}
+      className={`absolute select-none cursor-pointer ${dead ? 'dead-creature' : ''}`}
       style={{
         left: `${x * 100}%`,
         bottom: `${y * 100}%`,

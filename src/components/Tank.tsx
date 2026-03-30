@@ -273,6 +273,7 @@ export function Tank() {
   const plantCreatures = positions.filter(p => p.category === 'plant' && !p.instanceId.includes('duckweed') && !p.dead)
   const duckweedCreatures = positions.filter(p => p.category === 'plant' && p.instanceId.includes('duckweed') && !p.dead)
   const deadCreatures = positions.filter(p => p.dead)
+  const totalCreatures = swimmingCreatures.length + plantCreatures.length + duckweedCreatures.length
 
   return (
     <div className="w-full">
@@ -282,7 +283,7 @@ export function Tank() {
 
           <div className="relative z-10">
             <div className="flex justify-between items-start mb-3">
-              <ComfortMeter creatureCount={swimmingCreatures.length} />
+              <ComfortMeter creatureCount={totalCreatures} />
               <button
                 onClick={handleReset}
                 className="bg-white/10 hover:bg-white/20 text-cyan-100 
