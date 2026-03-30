@@ -91,8 +91,8 @@ export function MovingCreature({
         left: `${x * 100}%`,
         bottom: `${y * 100}%`,
         transform: `translateX(-50%) translateY(50%) ${facingLeft ? 'scaleX(-1)' : ''}`,
-        width: category === 'snail' ? '52px' : category === 'shrimp' ? '58px' : '64px',
-        height: category === 'snail' ? '40px' : category === 'shrimp' ? '42px' : '40px',
+        width: category === 'snail' ? '48px' : category === 'shrimp' ? '52px' : '64px',
+        height: category === 'snail' ? '38px' : category === 'shrimp' ? '38px' : '40px',
         zIndex: dead ? 5 : 10,
       }}
       onClick={() => onRemove(instanceId)}
@@ -173,18 +173,18 @@ function DeadFishSVG({ instanceId }: { instanceId: string }) {
 function DeadShrimpSVG({ instanceId }: { instanceId: string }) {
   const isCrystal = instanceId.includes('crystal')
   return (
-    <svg viewBox="0 0 80 56" className="opacity-60" xmlns="http://www.w3.org/2000/svg">
-      <path d="M32 28 Q36 20 40 12 Q50 4 62 12 Q70 20 74 28 Q78 36 72 42 Q64 48 52 46 Q38 46 28 40 Q22 36 18 28Z" fill="#b0b0b0" stroke="#888" strokeWidth="1" />
-      <path d="M18 28 Q12 22 6 12 Q14 4 24 12 Q28 20 32 28Z" fill="#c0c0c0" stroke="#888" strokeWidth="0.5" />
-      <path d="M72 28 Q78 22 80 18 Q76 28 72 28Z" fill="#c0c0c0" stroke="#888" strokeWidth="0.5" />
-      <line x1="28" y1="40" x2="20" y2="52" stroke="#888" strokeWidth="1.2" />
-      <line x1="36" y1="42" x2="30" y2="54" stroke="#888" strokeWidth="1.2" />
-      <line x1="46" y1="43" x2="42" y2="55" stroke="#888" strokeWidth="1.2" />
-      <line x1="56" y1="40" x2="54" y2="52" stroke="#888" strokeWidth="1.2" />
-      <line x1="62" y1="14" x2="60" y2="2" stroke="#888" strokeWidth="1" />
-      <line x1="64" y1="14" x2="66" y2="2" stroke="#888" strokeWidth="1" />
-      <circle cx="20" cy="24" r="4" fill="none" stroke="#888" strokeWidth="1" />
-      <circle cx="20" cy="24" r="2" fill="#888" />
+    <svg viewBox="0 0 70 50" className="opacity-60" xmlns="http://www.w3.org/2000/svg">
+      <ellipse cx="35" cy="25" rx="22" ry="12" fill="#b0b0b0" stroke="#888" strokeWidth="1" />
+      <path d="M13 25 Q10 20 12 15 Q15 20 18 25 Q15 30 12 35 Q10 30 13 25Z" fill="#c0c0c0" stroke="#888" strokeWidth="0.5" />
+      <path d="M57 25 Q62 22 65 18 Q63 25 57 25Z" fill="#c0c0c0" stroke="#888" strokeWidth="0.5" />
+      <line x1="20" y1="35" x2="15" y2="45" stroke="#888" strokeWidth="1.2" />
+      <line x1="28" y1="36" x2="24" y2="46" stroke="#888" strokeWidth="1.2" />
+      <line x1="36" y1="36" x2="34" y2="46" stroke="#888" strokeWidth="1.2" />
+      <line x1="44" y1="35" x2="44" y2="45" stroke="#888" strokeWidth="1.2" />
+      <line x1="55" y1="18" x2="58" y2="8" stroke="#888" strokeWidth="1" />
+      <line x1="58" y1="18" x2="62" y2="8" stroke="#888" strokeWidth="1" />
+      <circle cx="18" cy="22" r="2.5" fill="none" stroke="#888" strokeWidth="1" />
+      <circle cx="18" cy="22" r="1.2" fill="#888" />
     </svg>
   )
 }
@@ -192,17 +192,16 @@ function DeadShrimpSVG({ instanceId }: { instanceId: string }) {
 function DeadSnailSVG({ instanceId }: { instanceId: string }) {
   const isZebra = instanceId.includes('zebra')
   return (
-    <svg viewBox="0 0 80 60" className="opacity-60" xmlns="http://www.w3.org/2000/svg">
-      <ellipse cx="44" cy="26" rx="28" ry="24" fill="#b09070" stroke="#888" strokeWidth="1" />
-      <path d="M28 26 Q28 8 44 8 Q60 8 60 26 Q60 44 44 44 Q28 44 28 26Z" fill="none" stroke="#888" strokeWidth="0.8" />
-      <path d="M30 26 Q30 12 44 12 Q58 12 58 26 Q58 38 44 38 Q30 38 30 26Z" fill="none" stroke="#888" strokeWidth="0.8" />
-      <path d="M34 26 Q34 18 44 18 Q54 18 54 26 Q54 34 44 34 Q34 34 34 26Z" fill="none" stroke="#888" strokeWidth="0.8" />
-      <ellipse cx="44" cy="26" rx="5" ry="5" fill="#a08060" stroke="#888" strokeWidth="0.5" />
-      <ellipse cx="40" cy="52" rx="36" ry="6" fill="#c0a882" stroke="#888" strokeWidth="0.5" />
-      <path d="M12 50 Q10 44 12 38 Q14 44 16 50Z" fill="#c0a882" stroke="#888" strokeWidth="0.5" />
-      <line x1="10" y1="36" x2="6" y2="24" stroke="#888" strokeWidth="1.5" />
-      <line x1="10" y1="36" x2="10" y2="22" stroke="#888" strokeWidth="1.5" />
-      <circle cx="10" cy="34" r="2.5" fill="none" stroke="#888" strokeWidth="1" />
+    <svg viewBox="0 0 65 50" className="opacity-60" xmlns="http://www.w3.org/2000/svg">
+      <circle cx="42" cy="20" r="18" fill="#b09070" stroke="#888" strokeWidth="1" />
+      <path d="M30 12 Q38 8 46 12" stroke="#888" strokeWidth="1" fill="none" />
+      <path d="M28 18 Q38 14 48 18" stroke="#888" strokeWidth="1" fill="none" />
+      <circle cx="42" cy="20" r="3" fill="#a08060" stroke="#888" strokeWidth="0.5" />
+      <ellipse cx="30" cy="42" rx="28" ry="6" fill="#c0a882" stroke="#888" strokeWidth="0.5" />
+      <path d="M8 42 Q6 36 8 30 Q12 36 14 42Z" fill="#c0a882" stroke="#888" strokeWidth="0.5" />
+      <line x1="8" y1="26" x2="4" y2="18" stroke="#888" strokeWidth="1.5" />
+      <line x1="8" y1="26" x2="8" y2="16" stroke="#888" strokeWidth="1.5" />
+      <circle cx="8" cy="28" r="2" fill="none" stroke="#888" strokeWidth="1" />
     </svg>
   )
 }

@@ -39,18 +39,19 @@ body {
 
   .sand-layer {
     background: linear-gradient(
-      160deg,
-      #5c3d2e 0%,
-      #8b5e3c 15%,
-      #b07d4e 30%,
-      #d4a76a 45%,
-      #c9954e 55%,
-      #a0724a 65%,
-      #8b5e3c 80%,
+      165deg,
+      #6b4423 0%,
+      #8b5e3c 12%,
+      #b07d4e 28%,
+      #d4a76a 42%,
+      #c9954e 58%,
+      #a0724a 72%,
+      #8b5e3c 85%,
       #5c3d2e 100%
     );
     position: relative;
     overflow: hidden;
+    box-shadow: inset 0 8px 16px rgba(0,0,0,0.3), inset 0 -4px 8px rgba(0,0,0,0.2);
   }
 
   .sand-layer::before {
@@ -58,12 +59,12 @@ body {
     position: absolute;
     inset: 0;
     background:
-      radial-gradient(ellipse 60px 20px at 15% 80%, rgba(255,200,100,0.3) 0%, transparent 70%),
-      radial-gradient(ellipse 80px 25px at 40% 70%, rgba(255,220,120,0.25) 0%, transparent 70%),
-      radial-gradient(ellipse 50px 15px at 70% 85%, rgba(255,200,100,0.3) 0%, transparent 70%),
-      radial-gradient(ellipse 70px 22px at 88% 75%, rgba(255,220,120,0.2) 0%, transparent 70%),
-      radial-gradient(ellipse 40px 12px at 25% 60%, rgba(255,200,100,0.15) 0%, transparent 70%),
-      radial-gradient(ellipse 55px 18px at 55% 55%, rgba(255,210,110,0.2) 0%, transparent 70%);
+      radial-gradient(ellipse 70px 22px at 15% 75%, rgba(255,210,120,0.35) 0%, transparent 70%),
+      radial-gradient(ellipse 90px 28px at 40% 65%, rgba(255,230,140,0.3) 0%, transparent 70%),
+      radial-gradient(ellipse 60px 18px at 70% 80%, rgba(255,210,120,0.35) 0%, transparent 70%),
+      radial-gradient(ellipse 80px 25px at 88% 70%, rgba(255,230,140,0.25) 0%, transparent 70%),
+      radial-gradient(ellipse 50px 15px at 25% 55%, rgba(255,210,120,0.2) 0%, transparent 70%),
+      radial-gradient(ellipse 65px 20px at 55% 50%, rgba(255,220,130,0.25) 0%, transparent 70%);
     border-radius: inherit;
   }
 
@@ -72,14 +73,15 @@ body {
     position: absolute;
     inset: 0;
     background:
-      radial-gradient(circle 3px at 10% 30%, rgba(180,130,80,0.5) 0%, transparent 100%),
-      radial-gradient(circle 4px at 30% 50%, rgba(160,110,60,0.4) 0%, transparent 100%),
-      radial-gradient(circle 3px at 50% 25%, rgba(180,130,80,0.5) 0%, transparent 100%),
-      radial-gradient(circle 5px at 75% 45%, rgba(150,100,50,0.4) 0%, transparent 100%),
-      radial-gradient(circle 3px at 90% 20%, rgba(180,130,80,0.5) 0%, transparent 100%),
-      radial-gradient(circle 4px at 20% 70%, rgba(160,110,60,0.4) 0%, transparent 100%),
-      radial-gradient(circle 3px at 60% 65%, rgba(180,130,80,0.5) 0%, transparent 100%),
-      radial-gradient(circle 2px at 85% 60%, rgba(150,100,50,0.4) 0%, transparent 100%);
+      radial-gradient(circle 3.5px at 10% 30%, rgba(180,130,80,0.6) 0%, transparent 100%),
+      radial-gradient(circle 4.5px at 30% 50%, rgba(160,110,60,0.5) 0%, transparent 100%),
+      radial-gradient(circle 3px at 50% 25%, rgba(180,130,80,0.6) 0%, transparent 100%),
+      radial-gradient(circle 5.5px at 75% 45%, rgba(150,100,50,0.5) 0%, transparent 100%),
+      radial-gradient(circle 3.5px at 90% 20%, rgba(180,130,80,0.6) 0%, transparent 100%),
+      radial-gradient(circle 4px at 20% 70%, rgba(160,110,60,0.5) 0%, transparent 100%),
+      radial-gradient(circle 3.5px at 60% 65%, rgba(180,130,80,0.6) 0%, transparent 100%),
+      radial-gradient(circle 2.5px at 85% 60%, rgba(150,100,50,0.5) 0%, transparent 100%),
+      radial-gradient(circle 4px at 45% 80%, rgba(170,120,70,0.55) 0%, transparent 100%);
   }
 }
 
@@ -96,89 +98,97 @@ body {
   content: '';
   position: absolute;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.15);
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.25) 0%, rgba(255, 255, 255, 0.1) 70%, transparent 100%);
   animation: bubble-rise linear infinite;
+  box-shadow: 0 0 8px rgba(255, 255, 255, 0.3);
 }
 
 .bubble-bg::before {
-  width: 6px;
-  height: 6px;
+  width: 8px;
+  height: 8px;
   left: 20%;
   bottom: 15%;
-  animation-duration: 8s;
+  animation-duration: 7s;
   animation-delay: 0s;
 }
 
 .bubble-bg::after {
-  width: 4px;
-  height: 4px;
+  width: 6px;
+  height: 6px;
   left: 60%;
   bottom: 15%;
-  animation-duration: 10s;
+  animation-duration: 9s;
   animation-delay: 3s;
 }
 
 .bubble-1 {
   position: absolute;
-  width: 5px;
-  height: 5px;
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.12);
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.22) 0%, rgba(255, 255, 255, 0.08) 70%, transparent 100%);
   left: 35%;
   bottom: 15%;
-  animation: bubble-rise 7s linear infinite;
+  animation: bubble-rise 6s linear infinite;
   animation-delay: 1s;
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.2);
 }
 
 .bubble-2 {
   position: absolute;
-  width: 3px;
-  height: 3px;
+  width: 5px;
+  height: 5px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.1);
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.18) 0%, rgba(255, 255, 255, 0.06) 70%, transparent 100%);
   left: 75%;
   bottom: 15%;
-  animation: bubble-rise 12s linear infinite;
+  animation: bubble-rise 10s linear infinite;
   animation-delay: 5s;
+  box-shadow: 0 0 5px rgba(255, 255, 255, 0.15);
 }
 
 .bubble-3 {
   position: absolute;
-  width: 7px;
-  height: 7px;
+  width: 9px;
+  height: 9px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.08);
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.07) 70%, transparent 100%);
   left: 45%;
   bottom: 15%;
-  animation: bubble-rise 9s linear infinite;
+  animation: bubble-rise 8s linear infinite;
   animation-delay: 2s;
+  box-shadow: 0 0 7px rgba(255, 255, 255, 0.18);
 }
 
 .bubble-4 {
   position: absolute;
-  width: 4px;
-  height: 4px;
+  width: 6px;
+  height: 6px;
   border-radius: 50%;
-  background: rgba(255, 255, 255, 0.12);
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.2) 0%, rgba(255, 255, 255, 0.08) 70%, transparent 100%);
   left: 85%;
   bottom: 15%;
-  animation: bubble-rise 11s linear infinite;
+  animation: bubble-rise 9.5s linear infinite;
   animation-delay: 6s;
+  box-shadow: 0 0 6px rgba(255, 255, 255, 0.17);
 }
 
 @keyframes bubble-rise {
   0% {
-    transform: translateY(0) translateX(0);
+    transform: translateY(0) translateX(0) scale(1);
     opacity: 0;
   }
   5% {
     opacity: 1;
   }
+  50% {
+    transform: translateY(-260px) translateX(8px) scale(1.1);
+  }
   90% {
-    opacity: 0.6;
+    opacity: 0.7;
   }
   100% {
-    transform: translateY(-520px) translateX(15px);
+    transform: translateY(-520px) translateX(20px) scale(0.8);
     opacity: 0;
   }
 }

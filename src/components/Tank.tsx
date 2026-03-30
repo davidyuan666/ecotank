@@ -280,9 +280,12 @@ export function Tank() {
 
   return (
     <div className="w-full">
-      <div className="aquarium-frame rounded-2xl p-4 shadow-2xl border border-white/10 relative overflow-hidden">
+      <div className="aquarium-frame rounded-2xl p-5 shadow-2xl border-2 border-cyan-200/30 relative overflow-hidden bg-gradient-to-br from-slate-800/60 via-slate-700/40 to-slate-600/30">
         <div className="absolute inset-0 bg-gradient-to-br from-slate-800/50 via-slate-700/30 to-slate-600/20 rounded-2xl" />
-        <div className="absolute top-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-cyan-400/30 to-transparent" />
+        <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-transparent via-cyan-300/40 to-transparent" />
+        <div className="absolute bottom-0 left-0 right-0 h-1 bg-gradient-to-r from-transparent via-slate-500/30 to-transparent" />
+        <div className="absolute top-0 left-0 w-1 h-full bg-gradient-to-b from-cyan-300/20 via-transparent to-slate-500/20" />
+        <div className="absolute top-0 right-0 w-1 h-full bg-gradient-to-b from-cyan-300/20 via-transparent to-slate-500/20" />
 
           <div className="relative z-10">
             <div className="flex justify-between items-start mb-3">
@@ -355,18 +358,26 @@ export function Tank() {
 
             {hasSand && hasWater && (
               <>
-                <div className="absolute inset-0 bg-gradient-to-b from-cyan-900/60 via-blue-900/50 to-sky-900/80" />
+                <div className="absolute inset-0 bg-gradient-to-b from-cyan-900/65 via-blue-900/55 to-sky-900/85" />
                 <div className="absolute inset-0"
                   style={{
                     backgroundImage: `
-                      radial-gradient(ellipse 300px 150px at 15% 25%, rgba(100,200,255,0.08) 0%, transparent 60%),
-                      radial-gradient(ellipse 200px 120px at 75% 40%, rgba(80,180,255,0.06) 0%, transparent 60%),
-                      radial-gradient(ellipse 250px 100px at 50% 10%, rgba(150,220,255,0.05) 0%, transparent 60%),
-                      radial-gradient(ellipse 180px 80px at 40% 60%, rgba(60,150,200,0.05) 0%, transparent 60%)
+                      radial-gradient(ellipse 300px 150px at 15% 25%, rgba(100,200,255,0.12) 0%, transparent 60%),
+                      radial-gradient(ellipse 200px 120px at 75% 40%, rgba(80,180,255,0.09) 0%, transparent 60%),
+                      radial-gradient(ellipse 250px 100px at 50% 10%, rgba(150,220,255,0.08) 0%, transparent 60%),
+                      radial-gradient(ellipse 180px 80px at 40% 60%, rgba(60,150,200,0.07) 0%, transparent 60%)
                     `,
                   }}
                 />
-                <div className="absolute top-0 left-0 right-0 h-10 bg-gradient-to-b from-sky-300/20 to-transparent pointer-events-none z-20" />
+                <div className="absolute top-0 left-0 right-0 h-16 bg-gradient-to-b from-sky-200/25 via-cyan-300/15 to-transparent pointer-events-none z-20" />
+                <div className="absolute top-0 left-0 w-full h-full pointer-events-none z-[18]"
+                  style={{
+                    background: `
+                      linear-gradient(135deg, rgba(255,255,255,0.15) 0%, transparent 25%, transparent 75%, rgba(255,255,255,0.08) 100%),
+                      radial-gradient(ellipse 400px 200px at 20% 30%, rgba(255,255,255,0.12) 0%, transparent 50%)
+                    `
+                  }}
+                />
                 <div className="absolute inset-0 bubble-bg z-[1]" key={bubbleKey}>
                   <div className="bubble-1" />
                   <div className="bubble-2" />
@@ -434,13 +445,19 @@ export function Tank() {
                   ))}
                 </div>
 
-                <div className="absolute inset-0 z-[15] pointer-events-none"
+                <div className="absolute inset-0 z-[15] pointer-events-none rounded-xl"
                   style={{
-                    background: 'linear-gradient(to bottom, rgba(255,255,255,0.03) 0%, transparent 15%, transparent 85%, rgba(0,0,0,0.15) 100%)',
-                    borderRadius: '0.625rem',
+                    background: 'linear-gradient(to bottom, rgba(255,255,255,0.05) 0%, transparent 20%, transparent 80%, rgba(0,0,0,0.2) 100%)',
+                    boxShadow: 'inset 0 0 60px rgba(0,0,0,0.15), inset 0 -20px 40px rgba(0,0,0,0.1)'
                   }}
                 />
-                <div className="absolute top-0 left-0 w-8 h-full bg-gradient-to-r from-white/5 to-transparent pointer-events-none z-[16]" />
+                <div className="absolute top-0 left-0 w-12 h-full bg-gradient-to-r from-white/8 via-white/3 to-transparent pointer-events-none z-[16] rounded-l-xl" />
+                <div className="absolute top-0 right-0 w-8 h-full bg-gradient-to-l from-white/4 to-transparent pointer-events-none z-[16] rounded-r-xl" />
+                <div className="absolute inset-0 pointer-events-none z-[17] rounded-xl"
+                  style={{
+                    background: 'radial-gradient(ellipse 200px 300px at 85% 40%, rgba(255,255,255,0.08) 0%, transparent 60%)'
+                  }}
+                />
               </>
             )}
           </div>
