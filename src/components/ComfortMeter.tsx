@@ -22,7 +22,7 @@ export function ComfortMeter({ creatureCount }: ComfortMeterProps) {
       <div className="flex items-center gap-2">
         <span className="text-sm">🏠</span>
         <span className="font-bold text-cyan-200/80 text-xs">空间舒适度</span>
-        <span className={`font-bold text-xs ${status.valueText}`}>{creatureCount}只</span>
+        <span className={`font-bold text-xs ${status.valueText}`}>{creatureCount}个</span>
         <div className="flex-1 h-2 bg-slate-700/80 rounded-full overflow-hidden border border-white/5">
           <div
             className={`h-full bg-gradient-to-r ${status.bgGrad} transition-all duration-700 rounded-full`}
