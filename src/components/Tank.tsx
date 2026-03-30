@@ -42,9 +42,9 @@ function getRandomTarget(layerIndex: number, currentX: number) {
 
 function getCreatureSpeed(category: Creature['category']) {
   switch (category) {
-    case 'fish': return 0.005
-    case 'shrimp': return 0.003
-    case 'snail': return 0.001
+    case 'fish': return 0.0008
+    case 'shrimp': return 0.0005
+    case 'snail': return 0.0003
     default: return 0
   }
 }
@@ -227,7 +227,7 @@ export function Tank() {
         let { targetX, targetY } = p
         let { vx, vy } = p
 
-        if (newTimer > 2000 + Math.random() * 2000) {
+        if (newTimer > 5000 + Math.random() * 3000) {
           const next = getRandomTarget(p.layerIndex, p.x)
           targetX = next.x
           targetY = next.y
