@@ -7,6 +7,7 @@ import {
   AppleSnailSVG, ZebraSnailSVG,
   AnacharisSVG, AnubiasSVG, DuckweedSVG
 } from './CreatureSVGs'
+import { useDrag } from './DragContext'
 
 interface CreatureCardProps {
   creature: Creature
@@ -14,9 +15,16 @@ interface CreatureCardProps {
 }
 
 export function CreatureCard({ creature, onDragStart }: CreatureCardProps) {
+  const { setDraggedCreature } = useDrag()
+
   const handleDragStart = (e: React.DragEvent) => {
     e.dataTransfer.setData('application/json', JSON.stringify(creature))
     e.dataTransfer.effectAllowed = 'copy'
+    onDragStart(creature)
+  }
+
+  const handlePointerDown = (e: React.PointerEvent) => {
+    setDraggedCreature(creature)
     onDragStart(creature)
   }
 
@@ -24,9 +32,11 @@ export function CreatureCard({ creature, onDragStart }: CreatureCardProps) {
     <div
       draggable
       onDragStart={handleDragStart}
+      onPointerDown={handlePointerDown}
       className="bg-white/80 backdrop-blur-sm rounded-lg p-3 cursor-grab active:cursor-grabbing 
                  hover:bg-white/100 hover:shadow-lg transition-all duration-200 
-                 border border-blue-100 hover:border-blue-300"
+                 border border-blue-100 hover:border-blue-300 touch-none"
+      style={{ touchAction: 'none' }}
     >
       <div className="flex items-center gap-2">
         <span className="text-3xl">{creature.emoji}</span>

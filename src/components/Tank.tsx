@@ -5,6 +5,7 @@ import { Creature, CreaturePosition } from '@/types'
 import { MovingCreature, FixedCreature, DeadBone } from './CreatureCard'
 import { OxygenMeter } from './OxygenMeter'
 import { ComfortMeter } from './ComfortMeter'
+import { useDrag } from './DragContext'
 
 interface LayerInfo {
   id: string
@@ -84,6 +85,21 @@ export function Tank() {
   const oxygenLevel = calculateOxygen()
   const displayOxygen = Math.max(0, Math.min(100, oxygenLevel))
   const isDead = oxygenLevel <= 0
+
+  const { draggedCreature, setDraggedCreature } = useDrag()
+
+  const handlePointerUp = (e: React.PointerEvent) => {
+    if (!draggedCreature || !tankRef.current) return
+    
+    const rect = tankRef.current.getBoundingClientRect()
+    const x = e.clientX
+    const y = e.clientY
+    
+    if (x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom) {
+      handleDrop(draggedCreature)
+    }
+    setDraggedCreature(null)
+  }
 
   const handleDrop = (creature: Creature) => {
     const instanceId = `${creature.id}-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`
@@ -305,6 +321,7 @@ export function Tank() {
             ref={tankRef}
             className="aquarium-container relative rounded-xl overflow-hidden"
             style={{ height: 'calc(90vh - 140px)' }}
+            onPointerUp={handlePointerUp}
             onDragOver={e => { e.preventDefault(); e.dataTransfer.dropEffect = 'copy' }}
             onDrop={e => {
               e.preventDefault()

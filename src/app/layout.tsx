@@ -1,5 +1,6 @@
 import type { Metadata } from 'next'
 import './globals.css'
+import { DragProvider } from '@/components/DragContext'
 
 export const metadata: Metadata = {
   title: '生态鱼缸模拟器',
@@ -14,7 +15,9 @@ export default function RootLayout({
   return (
     <html lang="zh-CN">
       <body className="min-h-screen bg-gradient-to-b from-sky-100 to-sky-200">
-        {children}
+        <DragProvider>
+          {children}
+        </DragProvider>
       </body>
     </html>
   )
