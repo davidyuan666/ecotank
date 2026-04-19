@@ -88,6 +88,10 @@ export function Tank() {
 
   const handleDrop = (creature: Creature) => {
     console.log('handleDrop called:', creature)
+    if (!creature?.id) {
+      console.error('Invalid creature dropped:', creature)
+      return
+    }
     const instanceId = `${creature.id}-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`
 
     if (creature.category === 'sand') {
