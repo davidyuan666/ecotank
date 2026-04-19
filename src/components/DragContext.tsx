@@ -1,29 +1,33 @@
 'use client'
 
-import { createContext, useContext, useState, ReactNode } from 'react'
+import { createContext, useContext, useState, useCallback, ReactNode } from 'react'
 import { Creature } from '@/types'
 
 interface DragContextType {
-  draggedCreature: Creature | null
-  setDraggedCreature: (creature: Creature | null) => void
+  onCreatureClick: (creature: Creature) => void
+  setOnCreatureClick: (callback: ((creature: Creature) => void) | undefined) => void
 }
 
 const DragContext = createContext<DragContextType | undefined>(undefined)
 
 export function DragProvider({ children }: { children: ReactNode }) {
-  const [draggedCreature, setDraggedCreature] = useState<Creature | null>(null)
+  const [onCreatureClick, setOnCreatureClick] = useState<((creature: Creature) => void) | undefined>()
+
+  const handleCreatureClick = useCallback((creature: Creature) => {
+    onCreatureClick?.(creature)
+  }, [onCreatureClick])
 
   return (
-    <DragContext.Provider value={{ draggedCreature, setDraggedCreature }}>
+    <DragContext.Provider value={{ onCreatureClick: handleCreatureClick, setOnCreatureClick }}>
       {children}
     </DragContext.Provider>
   )
 }
 
-export function useDrag() {
+export function useCreatureClick() {
   const context = useContext(DragContext)
   if (!context) {
-    throw new Error('useDrag must be used within DragProvider')
+    throw new Error('useCreatureClick must be used within DragProvider')
   }
   return context
 }

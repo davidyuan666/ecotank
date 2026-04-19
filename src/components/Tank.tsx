@@ -5,7 +5,7 @@ import { Creature, CreaturePosition } from '@/types'
 import { MovingCreature, FixedCreature, DeadBone } from './CreatureCard'
 import { OxygenMeter } from './OxygenMeter'
 import { ComfortMeter } from './ComfortMeter'
-import { useDrag } from './DragContext'
+import { useCreatureClick } from './DragContext'
 
 interface LayerInfo {
   id: string
@@ -86,20 +86,12 @@ export function Tank() {
   const displayOxygen = Math.max(0, Math.min(100, oxygenLevel))
   const isDead = oxygenLevel <= 0
 
-  const { draggedCreature, setDraggedCreature } = useDrag()
+  const { setOnCreatureClick } = useCreatureClick()
 
-  const handlePointerUp = (e: React.PointerEvent) => {
-    if (!draggedCreature || !tankRef.current) return
-    
-    const rect = tankRef.current.getBoundingClientRect()
-    const x = e.clientX
-    const y = e.clientY
-    
-    if (x >= rect.left && x <= rect.right && y >= rect.top && y <= rect.bottom) {
-      handleDrop(draggedCreature)
-    }
-    setDraggedCreature(null)
-  }
+  useEffect(() => {
+    setOnCreatureClick(handleDrop)
+    return () => setOnCreatureClick(undefined)
+  }, [setOnCreatureClick, hasSand, hasWater, positions, layers])
 
   const handleDrop = (creature: Creature) => {
     const instanceId = `${creature.id}-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`
@@ -132,9 +124,9 @@ export function Tank() {
         ...prev,
         {
           instanceId,
-          x: 0, y: 0,
+          x: 0.5, y: 0.8,
           vx: 0, vy: 0,
-          targetX: 0, targetY: 0,
+          targetX: 0.5, targetY: 0.8,
           layerIndex: 0,
           moveTimer: 0,
           category: 'water',
@@ -321,7 +313,6 @@ export function Tank() {
             ref={tankRef}
             className="aquarium-container relative rounded-xl overflow-hidden"
             style={{ height: 'calc(90vh - 140px)' }}
-            onPointerUp={handlePointerUp}
             onDragOver={e => { e.preventDefault(); e.dataTransfer.dropEffect = 'copy' }}
             onDrop={e => {
               e.preventDefault()
