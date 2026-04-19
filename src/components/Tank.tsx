@@ -86,13 +86,6 @@ export function Tank() {
   const displayOxygen = Math.max(0, Math.min(100, oxygenLevel))
   const isDead = oxygenLevel <= 0
 
-  const { setOnCreatureClick } = useCreatureClick()
-
-  useEffect(() => {
-    setOnCreatureClick(handleDrop)
-    return () => setOnCreatureClick(undefined)
-  }, [setOnCreatureClick, hasSand, hasWater, positions, layers])
-
   const handleDrop = (creature: Creature) => {
     const instanceId = `${creature.id}-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`
 
@@ -193,6 +186,11 @@ export function Tank() {
       },
     ])
   }
+
+  const { setOnCreatureClick } = useCreatureClick()
+  useEffect(() => {
+    setOnCreatureClick(handleDrop)
+  }, [setOnCreatureClick, handleDrop])
 
   const handleRemoveCreature = (instanceId: string) => {
     const creature = positions.find(p => p.instanceId === instanceId)
