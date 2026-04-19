@@ -11,17 +11,10 @@ import { useCreatureClick } from './DragContext'
 
 interface CreatureCardProps {
   creature: Creature
-  onDragStart?: (creature: Creature) => void
 }
 
-export function CreatureCard({ creature, onDragStart }: CreatureCardProps) {
+export function CreatureCard({ creature }: CreatureCardProps) {
   const { onCreatureClick } = useCreatureClick()
-
-  const handleDragStart = (e: React.DragEvent) => {
-    e.dataTransfer.setData('application/json', JSON.stringify(creature))
-    e.dataTransfer.effectAllowed = 'copy'
-    onDragStart?.(creature)
-  }
 
   const handleClick = () => {
     console.log('CreatureCard click:', creature?.id, creature?.name, 'callback:', typeof onCreatureClick)
@@ -34,8 +27,6 @@ export function CreatureCard({ creature, onDragStart }: CreatureCardProps) {
 
   return (
     <div
-      draggable={!!onDragStart}
-      onDragStart={handleDragStart}
       onClick={handleClick}
       className="bg-white/80 backdrop-blur-sm rounded-lg p-3 cursor-pointer
                  hover:bg-white/100 hover:shadow-lg transition-all duration-200 

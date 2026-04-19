@@ -7,7 +7,6 @@ import { CreatureCard } from './CreatureCard'
 
 export function CreaturePanel() {
   const [selectedCategory, setSelectedCategory] = useState<string | null>(null)
-  const [draggedCreature, setDraggedCreature] = useState<Creature | null>(null)
 
   const categories = Object.keys(creaturesByCategory) as (keyof typeof creaturesByCategory)[]
 
@@ -50,7 +49,6 @@ export function CreaturePanel() {
                   <CreatureCard
                     key={creature.id}
                     creature={creature}
-                    onDragStart={setDraggedCreature}
                   />
                 ))}
               </div>

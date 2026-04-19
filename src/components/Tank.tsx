@@ -69,8 +69,12 @@ export function Tank() {
   const lastTimeRef = useRef<number>(0)
   const layersRef = useRef(layers)
   const tankRef = useRef<HTMLDivElement>(null)
+  const hasSandRef = useRef(hasSand)
+  const hasWaterRef = useRef(hasWater)
 
   useEffect(() => { layersRef.current = layers }, [layers])
+  useEffect(() => { hasSandRef.current = hasSand }, [hasSand])
+  useEffect(() => { hasWaterRef.current = hasWater }, [hasWater])
 
   const calculateOxygen = useCallback(() => {
     let total = 0
@@ -87,16 +91,22 @@ export function Tank() {
   const isDead = oxygenLevel <= 0
 
   const handleDrop = (creature: Creature) => {
-    console.log('handleDrop called:', creature)
+    console.log('handleDrop called:', creature, 'hasSand:', hasSandRef.current, 'hasWater:', hasWaterRef.current)
     if (!creature?.id) {
       console.error('Invalid creature dropped:', creature)
       return
     }
+    const currentHasSand = hasSandRef.current
+    const currentHasWater = hasWaterRef.current
     const instanceId = `${creature.id}-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`
 
     if (creature.category === 'sand') {
-      if (hasSand) return
+      if (currentHasSand) {
+        console.log('沙子已存在，不能重复添加')
+        return
+      }
       setHasSand(true)
+      console.log('已添加沙子')
       setPositions(prev => [
         ...prev,
         {
@@ -116,8 +126,17 @@ export function Tank() {
     }
 
     if (creature.category === 'water') {
-      if (hasWater || !hasSand) return
+      if (currentHasWater) {
+        console.log('清水已存在，不能重复添加')
+        return
+      }
+      if (!currentHasSand) {
+        console.log('请先添加沙子')
+        alert('请先添加沙子')
+        return
+      }
       setHasWater(true)
+      console.log('已添加清水')
       setPositions(prev => [
         ...prev,
         {
@@ -136,7 +155,16 @@ export function Tank() {
       return
     }
 
-    if (!hasSand || !hasWater) return
+    if (!currentHasSand || !currentHasWater) {
+      if (!currentHasSand) {
+        console.log('请先添加沙子')
+        alert('请先添加沙子')
+      } else if (!currentHasWater) {
+        console.log('请先添加清水')
+        alert('请先添加清水')
+      }
+      return
+    }
 
     const isPlant = creature.category === 'plant'
     const isDuckweed = creature.id === 'duckweed'
@@ -194,8 +222,9 @@ export function Tank() {
 
   const { setOnCreatureClick } = useCreatureClick()
   useEffect(() => {
+    console.log('Tank useEffect: setting onCreatureClick callback, hasSand:', hasSand, 'hasWater:', hasWater)
     setOnCreatureClick(handleDrop)
-  }, [setOnCreatureClick, handleDrop])
+  }, [setOnCreatureClick])
 
   const handleRemoveCreature = (instanceId: string) => {
     const creature = positions.find(p => p.instanceId === instanceId)
@@ -316,23 +345,12 @@ export function Tank() {
             ref={tankRef}
             className="aquarium-container relative rounded-xl overflow-hidden"
             style={{ height: 'calc(90vh - 140px)' }}
-            onDragOver={e => { e.preventDefault(); e.dataTransfer.dropEffect = 'copy' }}
-            onDrop={e => {
-              e.preventDefault()
-              const data = e.dataTransfer.getData('application/json')
-              if (data) {
-                try {
-                  const creature = JSON.parse(data) as Creature
-                  handleDrop(creature)
-                } catch {}
-              }
-            }}
           >
             {!hasSand && (
               <div className="absolute inset-0 flex flex-col items-center justify-center z-[20]">
                 <div className="text-center">
                   <div className="text-6xl mb-4">🏖️</div>
-                  <p className="text-cyan-300/80 text-lg font-medium">拖拽沙子到底部</p>
+                  <p className="text-cyan-300/80 text-lg font-medium">点击图鉴中的沙子添加到鱼缸</p>
                 </div>
               </div>
             )}
@@ -362,7 +380,7 @@ export function Tank() {
               <div className="absolute inset-0 flex flex-col items-center justify-center z-[15]">
                 <div className="text-center bg-slate-900/60 backdrop-blur-sm rounded-xl px-6 py-4">
                   <div className="text-5xl mb-3">💧</div>
-                  <p className="text-cyan-300/90 text-base font-medium">拖拽清水（占80%）</p>
+                  <p className="text-cyan-300/90 text-base font-medium">点击图鉴中的清水添加到鱼缸（占80%）</p>
                 </div>
               </div>
             )}
