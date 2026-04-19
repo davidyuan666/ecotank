@@ -87,6 +87,7 @@ export function Tank() {
   const isDead = oxygenLevel <= 0
 
   const handleDrop = (creature: Creature) => {
+    console.log('handleDrop called:', creature)
     const instanceId = `${creature.id}-${Date.now()}-${Math.random().toString(36).substr(2, 9)}`
 
     if (creature.category === 'sand') {

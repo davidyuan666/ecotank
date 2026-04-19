@@ -24,6 +24,11 @@ export function CreatureCard({ creature, onDragStart }: CreatureCardProps) {
   }
 
   const handleClick = () => {
+    console.log('CreatureCard click:', creature?.id, creature?.name, 'callback:', typeof onCreatureClick)
+    if (!onCreatureClick) {
+      console.error('onCreatureClick is undefined!')
+      return
+    }
     onCreatureClick(creature)
   }
 
