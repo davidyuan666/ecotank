@@ -97,23 +97,13 @@ export function Tank() {
           <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
           <div className="relative bg-gradient-to-br from-red-900 to-red-950 border-2 border-red-500/50 rounded-2xl p-6 shadow-2xl max-w-sm mx-4">
             <div className="text-center">
-              <div className="text-6xl mb-3">⚰️</div>
-              <h2 className="text-2xl font-bold text-red-400 mb-2">动物死亡</h2>
-              <p className="text-red-200/80 mb-4">氧气耗尽！所有动物已死亡。请添加水草产生氧气，或清空重置水箱。</p>
-              <div className="flex gap-3 justify-center">
-                <button
-                  onClick={() => setShowDeathAlert(false)}
-                  className="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg font-medium transition-colors"
-                >
-                  添加水草
-                </button>
-                <button
-                  onClick={handleReset}
-                  className="px-4 py-2 bg-red-700 hover:bg-red-600 text-white rounded-lg font-medium transition-colors"
-                >
-                  重置水箱
-                </button>
-              </div>
+              <p className="text-red-200/80 mb-4">氧气耗尽！所有动物已死亡。</p>
+              <button
+                onClick={handleReset}
+                className="px-4 py-2 bg-red-700 hover:bg-red-600 text-white rounded-lg font-medium transition-colors"
+              >
+                重置水箱
+              </button>
             </div>
           </div>
         </div>
