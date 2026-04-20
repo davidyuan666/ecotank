@@ -7,21 +7,17 @@ import {
   AppleSnailSVG, ZebraSnailSVG,
   AnacharisSVG, AnubiasSVG, DuckweedSVG
 } from './CreatureSVGs'
-import { useCreatureClick } from './DragContext'
+import { useTankState } from './DragContext'
 
 interface CreatureCardProps {
   creature: Creature
 }
 
 export function CreatureCard({ creature }: CreatureCardProps) {
-  const { onCreatureClick } = useCreatureClick()
+  const { onCreatureClick } = useTankState()
 
   const handleClick = () => {
-    console.log('CreatureCard click:', creature?.id, creature?.name, 'callback:', typeof onCreatureClick)
-    if (!onCreatureClick) {
-      console.error('onCreatureClick is undefined!')
-      return
-    }
+    console.log('CreatureCard click:', creature?.name)
     onCreatureClick(creature)
   }
 
