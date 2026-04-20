@@ -23,7 +23,7 @@ function getCreatureSpeed(category: string) {
 }
 
 export function Tank() {
-  const { hasSand, hasWater, positions, reset } = useTankState()
+  const { hasSand, hasWater, positions, reset, onCreatureClick } = useTankState()
   const [bubbleKey, setBubbleKey] = useState(0)
   const animRef = useRef<number>(0)
   const lastTimeRef = useRef<number>(0)
@@ -42,6 +42,13 @@ export function Tank() {
   const oxygenLevel = calculateOxygen()
   const displayOxygen = Math.max(0, Math.min(100, oxygenLevel))
   const isDead = oxygenLevel <= 0
+  const [showDeathAlert, setShowDeathAlert] = useState(false)
+
+  useEffect(() => {
+    if (isDead && hasWater) {
+      setShowDeathAlert(true)
+    }
+  }, [isDead, hasWater])
 
   const handleReset = useCallback(() => {
     cancelAnimationFrame(animRef.current)
@@ -81,6 +88,32 @@ export function Tank() {
 
   return (
     <div className="w-full">
+      {showDeathAlert && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center">
+          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
+          <div className="relative bg-gradient-to-br from-red-900 to-red-950 border-2 border-red-500/50 rounded-2xl p-6 shadow-2xl max-w-sm mx-4">
+            <div className="text-center">
+              <div className="text-6xl mb-3">⚰️</div>
+              <h2 className="text-2xl font-bold text-red-400 mb-2">动物死亡</h2>
+              <p className="text-red-200/80 mb-4">氧气耗尽！所有动物已死亡。请添加水草产生氧气，或清空重置水箱。</p>
+              <div className="flex gap-3 justify-center">
+                <button
+                  onClick={() => setShowDeathAlert(false)}
+                  className="px-4 py-2 bg-emerald-600 hover:bg-emerald-500 text-white rounded-lg font-medium transition-colors"
+                >
+                  添加水草
+                </button>
+                <button
+                  onClick={handleReset}
+                  className="px-4 py-2 bg-red-700 hover:bg-red-600 text-white rounded-lg font-medium transition-colors"
+                >
+                  重置水箱
+                </button>
+              </div>
+            </div>
+          </div>
+        </div>
+      )}
       <div className="aquarium-frame rounded-2xl p-5 shadow-2xl border-2 border-cyan-200/30 relative overflow-hidden bg-gradient-to-br from-slate-800/60 via-slate-700/40 to-slate-600/30">
         <div className="absolute inset-0 bg-gradient-to-br from-slate-800/50 via-slate-700/30 to-slate-600/20 rounded-2xl" />
         <div className="absolute top-0 left-0 right-0 h-1.5 bg-gradient-to-r from-transparent via-cyan-300/40 to-transparent" />

@@ -80,6 +80,17 @@ export function DragProvider({ children }: { children: ReactNode }) {
       return
     }
 
+    // 检查生物数量限制（不含沙、水、死亡）
+    const activeCreatures = positions.filter(p =>
+      p.category !== 'sand' &&
+      p.category !== 'water' &&
+      !p.dead
+    ).length
+    if (activeCreatures >= 20) {
+      alert('水箱太拥挤了，无法再添加生物！')
+      return
+    }
+
     // 添加生物
     setPositions(prev => [...prev, {
       instanceId,
