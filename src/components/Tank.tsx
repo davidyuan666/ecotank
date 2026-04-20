@@ -45,10 +45,10 @@ export function Tank() {
   const [showDeathAlert, setShowDeathAlert] = useState(false)
 
   useEffect(() => {
-    if (isDead && hasWater) {
+    if (isDead && hasWater && totalCreatures > 0) {
       setShowDeathAlert(true)
     }
-  }, [isDead, hasWater])
+  }, [isDead, hasWater, totalCreatures])
 
   const handleReset = useCallback(() => {
     cancelAnimationFrame(animRef.current)
