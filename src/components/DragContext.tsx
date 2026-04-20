@@ -83,17 +83,6 @@ export function DragProvider({ children }: { children: ReactNode }) {
       return
     }
 
-    // 检查生物数量限制（不含沙、水、死亡）
-    const activeCreatures = positions.filter(p =>
-      p.category !== 'sand' &&
-      p.category !== 'water' &&
-      !p.dead
-    ).length
-    if (activeCreatures >= 20) {
-      setCrowded(true)
-      return
-    }
-
     // 添加生物
     setPositions(prev => [...prev, {
       instanceId,
@@ -109,6 +98,16 @@ export function DragProvider({ children }: { children: ReactNode }) {
       emoji: creature.emoji,
       oxygenChange: creature.oxygenChange,
     }])
+    
+    // 检查是否超过20个，超过则弹出警告
+    const newCount = positions.filter(p =>
+      p.category !== 'sand' &&
+      p.category !== 'water' &&
+      !p.dead
+    ).length + 1
+    if (newCount > 20) {
+      setCrowded(true)
+    }
     console.log('已添加:', creature.name)
   }, [hasSand, hasWater])
 

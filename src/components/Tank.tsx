@@ -114,7 +114,7 @@ export function Tank() {
           <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
           <div className="relative bg-gradient-to-br from-amber-900 to-red-950 border-2 border-amber-500/50 rounded-2xl p-6 shadow-2xl max-w-sm mx-4">
             <div className="text-center">
-              <p className="text-amber-200/80 mb-4">无法添加生物，鱼缸太拥挤</p>
+              <p className="text-amber-200/80 mb-4">承载超限，水质变坏！</p>
               <button
                 onClick={() => setCrowded(false)}
                 className="px-4 py-2 bg-amber-700 hover:bg-amber-600 text-white rounded-lg font-medium transition-colors"
