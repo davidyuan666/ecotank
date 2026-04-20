@@ -44,11 +44,15 @@ export function Tank() {
   const isDead = oxygenLevel <= 0
   const [showDeathAlert, setShowDeathAlert] = useState(false)
 
+  const hasActiveAnimals = positions.some(p => 
+    !p.dead && p.category !== 'sand' && p.category !== 'water' && p.category !== 'plant'
+  )
+
   useEffect(() => {
-    if (isDead && hasWater && totalCreatures > 0) {
+    if (isDead && hasWater && hasActiveAnimals) {
       setShowDeathAlert(true)
     }
-  }, [isDead, hasWater, totalCreatures])
+  }, [isDead, hasWater, hasActiveAnimals])
 
   const handleReset = useCallback(() => {
     cancelAnimationFrame(animRef.current)
