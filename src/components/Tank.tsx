@@ -56,6 +56,7 @@ export function Tank() {
 
   const handleReset = useCallback(() => {
     cancelAnimationFrame(animRef.current)
+    setShowDeathAlert(false)
     reset()
     setBubbleKey(k => k + 1)
     lastTimeRef.current = 0
