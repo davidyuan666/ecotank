@@ -23,7 +23,7 @@ function getCreatureSpeed(category: string) {
 }
 
 export function Tank() {
-  const { hasSand, hasWater, positions, reset, onCreatureClick } = useTankState()
+  const { hasSand, hasWater, crowded, setCrowded, positions, reset, onCreatureClick } = useTankState()
   const [bubbleKey, setBubbleKey] = useState(0)
   const animRef = useRef<number>(0)
   const lastTimeRef = useRef<number>(0)
@@ -104,6 +104,22 @@ export function Tank() {
                 className="px-4 py-2 bg-red-700 hover:bg-red-600 text-white rounded-lg font-medium transition-colors"
               >
                 重置水箱
+              </button>
+            </div>
+          </div>
+        </div>
+      )}
+      {crowded && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center">
+          <div className="absolute inset-0 bg-black/60 backdrop-blur-sm" />
+          <div className="relative bg-gradient-to-br from-amber-900 to-red-950 border-2 border-amber-500/50 rounded-2xl p-6 shadow-2xl max-w-sm mx-4">
+            <div className="text-center">
+              <p className="text-amber-200/80 mb-4">无法添加生物，鱼缸太拥挤</p>
+              <button
+                onClick={() => setCrowded(false)}
+                className="px-4 py-2 bg-amber-700 hover:bg-amber-600 text-white rounded-lg font-medium transition-colors"
+              >
+                确定
               </button>
             </div>
           </div>

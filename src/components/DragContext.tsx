@@ -6,6 +6,8 @@ import { Creature, CreaturePosition } from '@/types'
 interface DragContextType {
   hasSand: boolean
   hasWater: boolean
+  crowded: boolean
+  setCrowded: (value: boolean) => void
   positions: CreaturePosition[]
   onCreatureClick: (creature: Creature) => void
   reset: () => void
@@ -16,6 +18,7 @@ const DragContext = createContext<DragContextType | undefined>(undefined)
 export function DragProvider({ children }: { children: ReactNode }) {
   const [hasSand, setHasSand] = useState(false)
   const [hasWater, setHasWater] = useState(false)
+  const [crowded, setCrowded] = useState(false)
   const [positions, setPositions] = useState<CreaturePosition[]>([])
 
   const handleCreatureClick = useCallback((creature: Creature) => {
@@ -87,7 +90,7 @@ export function DragProvider({ children }: { children: ReactNode }) {
       !p.dead
     ).length
     if (activeCreatures >= 20) {
-      alert('水箱太拥挤了，无法再添加生物！')
+      setCrowded(true)
       return
     }
 
@@ -112,11 +115,12 @@ export function DragProvider({ children }: { children: ReactNode }) {
   const reset = useCallback(() => {
     setHasSand(false)
     setHasWater(false)
+    setCrowded(false)
     setPositions([])
   }, [])
 
   return (
-    <DragContext.Provider value={{ hasSand, hasWater, positions, onCreatureClick: handleCreatureClick, reset }}>
+    <DragContext.Provider value={{ hasSand, hasWater, crowded, setCrowded, positions, onCreatureClick: handleCreatureClick, reset }}>
       {children}
     </DragContext.Provider>
   )
