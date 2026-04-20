@@ -83,31 +83,31 @@ export function DragProvider({ children }: { children: ReactNode }) {
       return
     }
 
-    // 添加生物
-    setPositions(prev => [...prev, {
-      instanceId,
-      x: 0.1 + Math.random() * 0.7,
-      y: 0.1 + Math.random() * 0.6,
-      vx: 0, vy: 0,
-      targetX: 0.1 + Math.random() * 0.7,
-      targetY: 0.1 + Math.random() * 0.6,
-      layerIndex: Math.floor(Math.random() * 4),
-      moveTimer: Math.random() * 100,
-      category: creature.category,
-      dead: false,
-      emoji: creature.emoji,
-      oxygenChange: creature.oxygenChange,
-    }])
-    
-    // 检查是否超过20个，超过则弹出警告
-    const newCount = positions.filter(p =>
-      p.category !== 'sand' &&
-      p.category !== 'water' &&
-      !p.dead
-    ).length + 1
-    if (newCount > 20) {
-      setCrowded(true)
-    }
+    // 添加生物并检查是否超过20个
+    setPositions(prev => {
+      const newCount = prev.filter(p =>
+        p.category !== 'sand' &&
+        p.category !== 'water' &&
+        !p.dead
+      ).length + 1
+      if (newCount > 20) {
+        setCrowded(true)
+      }
+      return [...prev, {
+        instanceId,
+        x: 0.1 + Math.random() * 0.7,
+        y: 0.1 + Math.random() * 0.6,
+        vx: 0, vy: 0,
+        targetX: 0.1 + Math.random() * 0.7,
+        targetY: 0.1 + Math.random() * 0.6,
+        layerIndex: Math.floor(Math.random() * 4),
+        moveTimer: Math.random() * 100,
+        category: creature.category,
+        dead: false,
+        emoji: creature.emoji,
+        oxygenChange: creature.oxygenChange,
+      }]
+    })
     console.log('已添加:', creature.name)
   }, [hasSand, hasWater])
 
